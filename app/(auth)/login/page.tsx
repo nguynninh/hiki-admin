@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import InputComponent from "@/components/forms/InputComponent";
+import authAPI from "@/apis/authAPI";
 
 interface LoginForm {
   email: string;
@@ -29,7 +30,6 @@ const LoginPage = () => {
     password: "",
     rememberMe: false,
   });
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<LoginFormErrors>({});
 
@@ -65,10 +65,22 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (!validateForm()) return;
-
     setIsLoading(true);
-
-    console.log("Login with:", JSON.stringify(values));
+    try {
+      const res = await authAPI(
+        "/login",
+        {
+          email: values.email,
+          password: values.password,
+        },
+        "post"
+      );
+      console.log("Login successful:", res);
+    } catch (error) {
+      console.error("Login failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
 
     setTimeout(() => {
       setIsLoading(false);
