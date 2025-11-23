@@ -12,9 +12,6 @@ import {
     ArrowLeftFromLine,
     ArrowLeftRight,
     ArrowRightFromLine,
-    BookHeart,
-    Gauge,
-    Users,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
