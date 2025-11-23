@@ -14,6 +14,12 @@
     "system": "Hệ thống",
     "profile": "Hồ sơ",
     "logout": "Đăng xuất",
+    "stt": "STT",
+    "action": "Thao tác",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "restore": "Khôi phục",
+    "deleteSelected": "Xóa đã chọn",
     "auto": "Tự động",
     "open": "Mở",
     "close": "Đóng"

@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Pagination as PaginationModel } from "@/models/Pagination";
 import { Button } from "@/components/ui/button";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     columns: any;
@@ -50,6 +51,7 @@ const LiquidGlassTag = ({ text }: { text: string }) => {
 
 const TableComponent = (props: Props) => {
     const { columns, data, pagination, onChangePage, renderAction } = props;
+    const { t } = useTranslation();
     const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
     const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,13 +89,13 @@ const TableComponent = (props: Props) => {
                             </TableHead>
                         )}
                         {props.typeList === 'stt' && (
-                            <TableHead className="w-[50px] text-center">STT</TableHead>
+                            <TableHead className="w-[50px] text-center">{t('common:stt')}</TableHead>
                         )}
                         {columns.map((column: any) => (
                             <TableHead key={column.key}>{column.title}</TableHead>
                         ))}
                         {renderAction && (
-                            <TableHead className="text-left w-[100px]">Hành động</TableHead>
+                            <TableHead className="text-left w-[100px]">{t('common:action')}</TableHead>
                         )}
                     </TableRow>
                 </TableHeader>
@@ -145,7 +147,7 @@ const TableComponent = (props: Props) => {
             </Table>
             <div className="flex justify-between mx-6">
                 <Button>
-                    Xóa đã chọn {selectedRows.length}
+                    {t('common:deleteSelected')} {selectedRows.length}
                 </Button>
                 <Pagination className="flex justify-end">
                     <PaginationContent>
@@ -166,8 +168,7 @@ const TableComponent = (props: Props) => {
                                     <PaginationLink
                                         isActive={currentPage === 1}
                                         onClick={() => onChangePage(1)}
-                                        className="cursor-pointer"
-                                    >
+                                        className="cursor-pointer">
                                         1
                                     </PaginationLink>
                                 </PaginationItem>
@@ -187,8 +188,7 @@ const TableComponent = (props: Props) => {
                                         <PaginationLink
                                             isActive={currentPage === i}
                                             onClick={() => onChangePage(i)}
-                                            className="cursor-pointer"
-                                        >
+                                            className="cursor-pointer">
                                             {i}
                                         </PaginationLink>
                                     </PaginationItem>
