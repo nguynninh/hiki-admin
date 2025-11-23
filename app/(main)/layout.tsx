@@ -31,6 +31,18 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             icon: <Users size={22} />,
             label: t("common:users"),
             href: "/users",
+            children: [
+                {
+                    icon: <Users size={22} />,
+                    label: t("common:users_list"),
+                    href: "/users/list",
+                },
+                {
+                    icon: <Users size={22} />,
+                    label: t("common:users_create"),
+                    href: "/users/create",
+                }
+            ]
         },
         {
             icon: <BookHeart size={22} />,
@@ -45,7 +57,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <AppSidebar
                 mode={mode}
                 menu={menu}
-                expandedWidth={220}
+                expandedWidth={250}
                 collapsedWidth={70}
                 enableHover={true}
                 setMode={(mode: SidebarMode) => {
@@ -58,8 +70,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         windowWidth <= 672
                             ? 5
                             : mode === "collapsed"
-                                ? -150
-                                : 0,
+                                ? -155
+                                : 30,
                 }}
                 className="flex-1 transition-all duration-300">
                 <div className="w-full my-2">
@@ -68,7 +80,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                             user={user}
                             sidebarMode={mode}
                             setSidebarMode={setMode}
-                            menu={menu}
                         />
                     </div>
                     <div className="m-2">

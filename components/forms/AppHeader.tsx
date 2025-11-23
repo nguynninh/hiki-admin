@@ -14,24 +14,23 @@ const AppHeader = ({
     user,
     sidebarMode,
     setSidebarMode,
-    menu,
 }: {
     user: UserModel;
     sidebarMode?: SidebarMode;
     setSidebarMode?: (mode: SidebarMode) => void;
-    menu: MenuItem[];
 }) => {
     const { setTheme } = useTheme();
     const { t, i18n } = useTranslation();
-    const pathname = usePathname();
+    let pathname = usePathname();
     const [namePage, setNamePage] = useState<string>("");
 
     useEffect(() => {
-        const currentPage = menu.find((item) => item.href === pathname);
-        if (currentPage) {
-            setNamePage(currentPage.label);
+        if (pathname.startsWith("/")) {
+            pathname = pathname.slice(1);
         }
-    }, [pathname, menu]);
+        pathname = pathname.replace("/", "_");
+        setNamePage(t(`common:${pathname}`));
+    }, [pathname]);
 
     const itemsAvatar: AvatarItem[] = [
         {

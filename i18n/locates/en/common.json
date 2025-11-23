@@ -1,6 +1,9 @@
 {
     "dashboard": "Dashboard",
     "users": "Users",
+    "users_list": "Users List",
+    "users_create": "Users Create",
+    "users_edit": "Users Edit",
     "banner": "Banner",
     "settings": "Settings",
     "language": "Language",

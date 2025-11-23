@@ -1,6 +1,9 @@
 {
     "dashboard": "ダッシュボード",
     "users": "ユーザー",
+    "users_list": "ユーザー一覧",
+    "users_create": "ユーザー作成",
+    "users_edit": "ユーザー編集",
     "banner": "バナー",
     "settings": "設定",
     "language": "言語",

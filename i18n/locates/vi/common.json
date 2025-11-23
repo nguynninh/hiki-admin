@@ -1,6 +1,9 @@
 {
     "dashboard": "Bảng điều khiển",
     "users": "Người dùng",
+    "users_list": "Danh sách người dùng",
+    "users_create": "Thêm người dùng",
+    "users_edit": "Sửa người dùng",
     "banner": "Banner",
     "settings": "Cài đặt",
     "language": "Ngôn ngữ",

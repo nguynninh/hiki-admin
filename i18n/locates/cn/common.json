@@ -1,6 +1,9 @@
 {
     "dashboard": "仪表盘",
     "users": "用户",
+    "users_list": "用户列表",
+    "users_create": "用户创建",
+    "users_edit": "用户编辑",
     "banner": "横幅",
     "settings": "设置",
     "language": "语言",
