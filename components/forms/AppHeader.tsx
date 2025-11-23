@@ -3,8 +3,12 @@ import { AvatarDropdown } from "@/components/forms";
 import { MenuItem, SidebarMode } from "@/components/forms/AppSidebar";
 import { AvatarItem } from "@/components/forms/AvatarDropdown";
 import UserModel from "@/models/UserModel";
-import { BellRing, Globe, Menu, Settings, Sun, User } from "lucide-react";
+import { Atom, BellRing, Globe, Menu, Moon, Settings, Sun, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { usePathname } from "next/navigation";
+import { Card } from "@/components/ui/card";
+import { useTheme } from "next-themes";
 
 const AppHeader = ({
     user,
@@ -17,7 +21,17 @@ const AppHeader = ({
     setSidebarMode?: (mode: SidebarMode) => void;
     menu: MenuItem[];
 }) => {
-    const { t } = useTranslation();
+    const { setTheme } = useTheme();
+    const { t, i18n } = useTranslation();
+    const pathname = usePathname();
+    const [namePage, setNamePage] = useState<string>("");
+
+    useEffect(() => {
+        const currentPage = menu.find((item) => item.href === pathname);
+        if (currentPage) {
+            setNamePage(currentPage.label);
+        }
+    }, [pathname, menu]);
 
     const itemsAvatar: AvatarItem[] = [
         {
@@ -27,10 +41,49 @@ const AppHeader = ({
         {
             icon: <Globe size={18} className="text-green-600" />,
             label: t("common:language"),
+            children: [
+                {
+                    icon: '🇺🇸',
+                    label: t("common:english"),
+                    onClick: () => i18n.changeLanguage("en"),
+                },
+                {
+                    icon: '🇻🇳',
+                    label: t("common:vietnamese"),
+                    onClick: () => i18n.changeLanguage("vi"),
+                },
+                {
+                    icon: '🇨🇳',
+                    label: t("common:chinese"),
+                    onClick: () => i18n.changeLanguage("cn"),
+                },
+                {
+                    icon: '🇯🇵',
+                    label: t("common:japan"),
+                    onClick: () => i18n.changeLanguage("jp"),
+                }
+            ],
         },
         {
             icon: <Sun size={18} className="text-yellow-600" />,
             label: t("common:theme"),
+            children: [
+                {
+                    icon: <Sun size={18} className="text-yellow-600" />,
+                    label: t("common:light"),
+                    onClick: () => setTheme("light"),
+                },
+                {
+                    icon: <Moon size={18} className="text-blue-600" />,
+                    label: t("common:dark"),
+                    onClick: () => setTheme("dark"),
+                },
+                {
+                    icon: <Atom size={18} className="text-blue-600" />,
+                    label: t("common:system"),
+                    onClick: () => setTheme("system"),
+                }
+            ],
         },
         {
             icon: <Settings size={18} className="text-blue-600" />,
@@ -49,106 +102,43 @@ const AppHeader = ({
     };
 
     return (
-        <header
-            className="w-full relative"
-            style={{
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3))",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                padding: "5px 15px",
-                borderRadius: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.4)",
-                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.7)",
-            }}>
-            <div className="flex items-center justify-between w-full">
-                <div className="flex items-center gap-2">
-                    <button
-                        onClick={handleToggleSidebar}
-                        className="p-2.5 rounded-xl transition-all duration-300"
-                        style={{
-                            background: "rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(10px)",
-                            border: "1px solid rgba(255, 255, 255, 0.5)",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.5)";
-                            e.currentTarget.style.transform = "translateY(-2px)";
-                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.3)";
-                            e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.boxShadow = "none";
-                        }}>
-                        <Menu size={20} />
-                    </button>
-                    <div
-                        className="px-4 py-2 rounded-xl transition-all duration-300"
-                        style={{
-                            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.25), rgba(118, 75, 162, 0.20))",
-                            backdropFilter: "blur(15px)",
-                            WebkitBackdropFilter: "blur(15px)",
-                            border: "1px solid rgba(255, 255, 255, 0.5)",
-                            boxShadow: "0 4px 16px rgba(102, 126, 234, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.6)",
-                        }}>
-                        <h3
-                            className="font-semibold text-lg whitespace-nowrap"
-                            style={{
-                                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                            }}>
-                            {menu.find((item) => item.href === window.location.pathname)?.label}
-                        </h3>
+        <header>
+            <Card
+                className="w-full relative bg-card/60 backdrop-blur-xl border-white/20 shadow-lg rounded-2xl p-2"
+                style={{
+                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)",
+                }}>
+                <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={handleToggleSidebar}
+                            className="p-2.5 rounded-xl transition-all duration-300 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 hover:shadow-md group">
+                            <Menu size={20} className="text-foreground group-hover:scale-110 transition-transform" />
+                        </button>
+                        <div
+                            className="px-4 py-2 rounded-xl transition-all duration-300 bg-primary/10 backdrop-blur-md border border-white/20 shadow-inner">
+                            <h3
+                                className="font-semibold text-lg whitespace-nowrap bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                                {namePage}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <button
+                            className="p-2.5 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 hover:shadow-md group">
+                            <BellRing size={20} className="text-foreground group-hover:scale-110 transition-transform" />
+                        </button>
+                        <div
+                            className="py-1.5 px-2.5 rounded-xl transition-all duration-300 bg-white/20 backdrop-blur-md border border-white/30 hover:shadow-md">
+                            <AvatarDropdown
+                                user={user}
+                                items={itemsAvatar}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
-                    <button
-                        className="p-2.5 rounded-full transition-all duration-300"
-                        style={{
-                            background: "rgba(255, 255, 255, 0.4)",
-                            backdropFilter: "blur(10px)",
-                            border: "1px solid rgba(255, 255, 255, 0.6)",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.6)";
-                            e.currentTarget.style.transform = "translateY(-2px) scale(1.05)";
-                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.4)";
-                            e.currentTarget.style.transform = "translateY(0) scale(1)";
-                            e.currentTarget.style.boxShadow = "none";
-                        }}>
-                        <BellRing size={20} />
-                    </button>
-                    <button
-                        className="py-1.5 px-2.5 rounded-xl transition-all duration-300"
-                        style={{
-                            background: "rgba(255, 255, 255, 0.4)",
-                            backdropFilter: "blur(10px)",
-                            border: "1px solid rgba(255, 255, 255, 0.6)",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.6)";
-                            e.currentTarget.style.transform = "translateY(-2px) scale(1.05)";
-                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.4)";
-                            e.currentTarget.style.transform = "translateY(0) scale(1)";
-                            e.currentTarget.style.boxShadow = "none";
-                        }}>
-                        <AvatarDropdown
-                            user={user}
-                            items={itemsAvatar}
-                        />
-                    </button>
-                </div>
-            </div>
-        </header>
-    );
+            </Card>
+        </header>);
 }
 
 export default AppHeader;
