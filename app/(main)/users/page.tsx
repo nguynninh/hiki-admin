@@ -46,6 +46,7 @@ const UsersPage = () => {
                 columns={columns}
                 data={users}
                 pagination={pagination}
+                typeList="checkbox"
             />
         </Card>
     );

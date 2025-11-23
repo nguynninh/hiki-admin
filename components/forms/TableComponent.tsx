@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination } from "@/models/Pagination";
 
@@ -5,6 +8,7 @@ interface Props {
     columns: any;
     data: any;
     pagination: Pagination;
+    typeList?: 'checkbox' | 'stt'
 }
 
 const getColorFromString = (str: string) => {
@@ -42,20 +46,68 @@ const LiquidGlassTag = ({ text }: { text: string }) => {
 
 const TableComponent = (props: Props) => {
     const { columns, data, pagination } = props;
+    const [selectedRows, setSelectedRows] = useState<string[]>([]);
+
+    const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const currentIds = data.map((item: any) => item.id);
+        if (e.target.checked) {
+            setSelectedRows((prev) => [...new Set([...prev, ...currentIds])]);
+        } else {
+            setSelectedRows((prev) => prev.filter((id) => !currentIds.includes(id)));
+        }
+    };
+
+    const handleSelectRow = (id: string) => {
+        setSelectedRows((prev) =>
+            prev.includes(id)
+                ? prev.filter((rowId) => rowId !== id)
+                : [...prev, id]
+        );
+    };
+
+    const isAllSelected = data.length > 0 && data.every((item: any) => selectedRows.includes(item.id));
 
     return (
         <div className="space-y-4">
             <Table>
                 <TableHeader>
                     <TableRow>
+                        {props.typeList === 'checkbox' && (
+                            <TableHead className="w-[50px]">
+                                <input
+                                    type="checkbox"
+                                    className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                    checked={isAllSelected}
+                                    onChange={handleSelectAll}
+                                />
+                            </TableHead>
+                        )}
+                        {props.typeList === 'stt' && (
+                            <TableHead className="w-[50px] text-center">STT</TableHead>
+                        )}
                         {columns.map((column: any) => (
                             <TableHead key={column.key}>{column.title}</TableHead>
                         ))}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.map((item: any) => (
+                    {data.map((item: any, index: number) => (
                         <TableRow key={item.id}>
+                            {props.typeList === 'checkbox' && (
+                                <TableCell>
+                                    <input
+                                        type="checkbox"
+                                        className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                        checked={selectedRows.includes(item.id)}
+                                        onChange={() => handleSelectRow(item.id)}
+                                    />
+                                </TableCell>
+                            )}
+                            {props.typeList === 'stt' && (
+                                <TableCell className="text-center">
+                                    {(pagination.page - 1) * pagination.limit + index + 1}
+                                </TableCell>
+                            )}
                             {columns.map((column: any) => (
                                 <TableCell key={column.key}>
                                     {column.type === "tags" ? (

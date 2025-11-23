@@ -51,6 +51,11 @@ const useFetchList = <T>(
                 if (response && response.data && response.data[lastPath]) {
                     setData(response.data[lastPath]);
                     const updatedPagination = {
+                        limit: Number(parsedQuery.limit) || 10,
+                        totalItems: 0,
+                        totalPages: 0,
+                        previousPage: false,
+                        nextPage: false,
                         ...response.data.pagination,
                         page: Number(parsedQuery.page) || 1
                     };
