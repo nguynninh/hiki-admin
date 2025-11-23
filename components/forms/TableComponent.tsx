@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination } from "@/models/Pagination";
+import { Button } from "@/components/ui/button";
 
 interface Props {
     columns: any;
@@ -73,7 +74,7 @@ const TableComponent = (props: Props) => {
                 <TableHeader>
                     <TableRow>
                         {props.typeList === 'checkbox' && (
-                            <TableHead className="w-[50px]">
+                            <TableHead className="w-full flex items-center justify-center">
                                 <input
                                     type="checkbox"
                                     className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
@@ -83,7 +84,7 @@ const TableComponent = (props: Props) => {
                             </TableHead>
                         )}
                         {props.typeList === 'stt' && (
-                            <TableHead className="w-[50px] text-center">STT</TableHead>
+                            <TableHead className="w-[50px]">STT</TableHead>
                         )}
                         {columns.map((column: any) => (
                             <TableHead key={column.key}>{column.title}</TableHead>
@@ -94,10 +95,10 @@ const TableComponent = (props: Props) => {
                     {data.map((item: any, index: number) => (
                         <TableRow key={item.id}>
                             {props.typeList === 'checkbox' && (
-                                <TableCell>
+                                <TableCell className="w-full flex items-center justify-center">
                                     <input
                                         type="checkbox"
-                                        className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                        className="flex items-center justify-center accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                                         checked={selectedRows.includes(item.id)}
                                         onChange={() => handleSelectRow(item.id)}
                                     />
@@ -131,6 +132,12 @@ const TableComponent = (props: Props) => {
                     ))}
                 </TableBody>
             </Table>
+            <div className="flex justify-between mx-6">
+                <Button>
+                    Xóa đã chọn {selectedRows.length}
+                </Button>
+                
+            </div>
         </div>
     );
 };
