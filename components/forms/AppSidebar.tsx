@@ -1,5 +1,4 @@
 "use client";
-
 import {
     Sidebar,
     SidebarContent,
@@ -23,7 +22,7 @@ import clsx from "clsx";
 
 export type SidebarMode = "expanded" | "collapsed" | "auto";
 
-export function AppSidebar() {
+const AppSidebar = () => {
     const [mode, setMode] = useState<SidebarMode>("expanded");
     const [hovered, setHovered] = useState(false);
 
@@ -144,3 +143,5 @@ export function AppSidebar() {
         </Sidebar>
     );
 }
+
+export default AppSidebar;
