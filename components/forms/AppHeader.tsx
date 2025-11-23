@@ -9,13 +9,12 @@ const AppHeader = ({
     user: UserModel
 }) => {
     return (
-        <header style={{
+        <header className="w-full" style={{
             backgroundColor: "#f7f7f7",
-            margin: "5px",
-            padding: "5px",
+            padding: "5px 15px",
             borderRadius: "8px",
         }}>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-2">
                     <InputSearchComponent />
                 </div>

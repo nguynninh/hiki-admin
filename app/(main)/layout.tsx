@@ -8,8 +8,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main>
-                <AppHeader user={user} />
+            <main className="w-full">
+                <div className="w-full my-1">
+                    <AppHeader user={user} />
+                </div>
                 {children}
             </main>
         </SidebarProvider>
