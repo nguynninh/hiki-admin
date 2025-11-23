@@ -10,6 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserModel from "@/models/UserModel";
+import { useTranslation } from "react-i18next";
 
 export interface AvatarItem {
     icon: React.ReactNode;
@@ -25,6 +26,7 @@ interface Props {
 const AvatarDropdown = (props: Props) => {
     const { user, items } = props;
     const [open, setOpen] = React.useState(false);
+    const { t } = useTranslation();
 
     const handleLogout = () => {
         console.log("Đăng xuất");
@@ -153,7 +155,7 @@ const AvatarDropdown = (props: Props) => {
                         }}>
                         <LogOut size={18} className="text-red-600" />
                     </div>
-                    <span className="text-sm font-medium text-red-600">Đăng xuất</span>
+                    <span className="text-sm font-medium text-red-600">{t("common:logout")}</span>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

@@ -2,6 +2,11 @@
     "dashboard": "Bảng điều khiển",
     "users": "Người dùng",
     "banner": "Banner",
+    "settings": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "profile": "Hồ sơ",
+    "logout": "Đăng xuất",
     "auto": "Tự động",
     "open": "Mở",
     "close": "Đóng"

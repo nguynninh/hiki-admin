@@ -22,19 +22,19 @@ const AppHeader = ({
     const itemsAvatar: AvatarItem[] = [
         {
             icon: <User size={18} className="text-gray-600" />,
-            label: "Hồ sơ",
+            label: t("common:profile"),
         },
         {
             icon: <Globe size={18} className="text-green-600" />,
-            label: "Ngôn ngữ",
+            label: t("common:language"),
         },
         {
             icon: <Sun size={18} className="text-yellow-600" />,
-            label: "Chế độ sáng tối",
+            label: t("common:theme"),
         },
         {
             icon: <Settings size={18} className="text-blue-600" />,
-            label: "Cài đặt",
+            label: t("common:settings"),
         },
     ];
 
@@ -59,8 +59,7 @@ const AppHeader = ({
                 borderRadius: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.4)",
                 boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.7)",
-            }}
-        >
+            }}>
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-2">
                     <button
