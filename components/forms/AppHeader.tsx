@@ -30,7 +30,7 @@ const AppHeader = ({
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3))",
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
-                padding: "10px 15px",
+                padding: "5px 15px",
                 borderRadius: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.4)",
                 boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.7)",
@@ -81,11 +81,29 @@ const AppHeader = ({
                     >
                         <BellRing size={20} />
                     </button>
-                    <AvatarComponent
-                        image={user.avatar}
-                        name={user.firstname + " " + user.lastname}
-                        email={user.email}
-                    />
+                    <button
+                        className="py-1.5 px-2.5 rounded-xl transition-all duration-300"
+                        style={{
+                            background: "rgba(255, 255, 255, 0.4)",
+                            backdropFilter: "blur(10px)",
+                            border: "1px solid rgba(255, 255, 255, 0.6)",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.6)";
+                            e.currentTarget.style.transform = "translateY(-2px) scale(1.05)";
+                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.4)";
+                            e.currentTarget.style.transform = "translateY(0) scale(1)";
+                            e.currentTarget.style.boxShadow = "none";
+                        }}>   
+                        <AvatarComponent
+                            image={user.avatar}
+                            name={user.firstname + " " + user.lastname}
+                            email={user.email}
+                        />
+                    </button>
                 </div>
             </div>
         </header>
