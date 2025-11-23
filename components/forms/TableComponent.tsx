@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Pagination } from "@/models/Pagination";
+import { Pagination as PaginationModel } from "@/models/Pagination";
 import { Button } from "@/components/ui/button";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 interface Props {
     columns: any;
     data: any;
-    pagination: Pagination;
+    pagination: PaginationModel;
+    onChangePage: (page: number) => void;
     typeList?: 'checkbox' | 'stt'
 }
 
@@ -46,7 +48,7 @@ const LiquidGlassTag = ({ text }: { text: string }) => {
 };
 
 const TableComponent = (props: Props) => {
-    const { columns, data, pagination } = props;
+    const { columns, data, pagination, onChangePage } = props;
     const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
     const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +138,87 @@ const TableComponent = (props: Props) => {
                 <Button>
                     Xóa đã chọn {selectedRows.length}
                 </Button>
-                
+                <Pagination className="flex justify-end">
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious
+                                onClick={() => pagination.previousPage && onChangePage(pagination.page - 1)}
+                                className={!pagination.previousPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                            />
+                        </PaginationItem>
+
+                        {(() => {
+                            const totalPages = pagination.totalPages;
+                            const currentPage = pagination.page;
+                            const items = [];
+
+                            items.push(
+                                <PaginationItem key={1}>
+                                    <PaginationLink
+                                        isActive={currentPage === 1}
+                                        onClick={() => onChangePage(1)}
+                                        className="cursor-pointer"
+                                    >
+                                        1
+                                    </PaginationLink>
+                                </PaginationItem>
+                            );
+
+                            if (currentPage > 3) {
+                                items.push(
+                                    <PaginationItem key="start-ellipsis">
+                                        <PaginationEllipsis />
+                                    </PaginationItem>
+                                );
+                            }
+
+                            for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+                                items.push(
+                                    <PaginationItem key={i}>
+                                        <PaginationLink
+                                            isActive={currentPage === i}
+                                            onClick={() => onChangePage(i)}
+                                            className="cursor-pointer"
+                                        >
+                                            {i}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                );
+                            }
+
+                            if (currentPage < totalPages - 2) {
+                                items.push(
+                                    <PaginationItem key="end-ellipsis">
+                                        <PaginationEllipsis />
+                                    </PaginationItem>
+                                );
+                            }
+
+                            if (totalPages > 1) {
+                                items.push(
+                                    <PaginationItem key={totalPages}>
+                                        <PaginationLink
+                                            isActive={currentPage === totalPages}
+                                            onClick={() => onChangePage(totalPages)}
+                                            className="cursor-pointer"
+                                        >
+                                            {totalPages}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                );
+                            }
+
+                            return items;
+                        })()}
+
+                        <PaginationItem>
+                            <PaginationNext
+                                onClick={() => pagination.nextPage && onChangePage(pagination.page + 1)}
+                                className={!pagination.nextPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </div>
         </div>
     );
