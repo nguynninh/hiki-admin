@@ -9,6 +9,7 @@ import { addUser } from "@/redux/reducers/userReducer";
 import { localDataNames } from "@/constants/appInfos";
 import handleAPI from "@/apis/handleAPI";
 import { SpinComponent } from "@/components/forms";
+import { I18nProvider } from "@/i18n/provider";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
@@ -89,7 +90,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <Provider store={store}>
-            <AuthProvider>{children}</AuthProvider>
+            <I18nProvider defaultLanguage="vi">
+                <AuthProvider>{children}</AuthProvider>
+            </I18nProvider>
         </Provider>
     );
 }

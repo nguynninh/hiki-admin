@@ -1,19 +1,23 @@
 "use client";
 import { AvatarDropdown } from "@/components/forms";
-import { SidebarMode } from "@/components/forms/AppSidebar";
+import { MenuItem, SidebarMode } from "@/components/forms/AppSidebar";
 import { AvatarItem } from "@/components/forms/AvatarDropdown";
 import UserModel from "@/models/UserModel";
 import { BellRing, Globe, Menu, Settings, Sun, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const AppHeader = ({
     user,
     sidebarMode,
     setSidebarMode,
+    menu,
 }: {
     user: UserModel;
     sidebarMode?: SidebarMode;
     setSidebarMode?: (mode: SidebarMode) => void;
+    menu: MenuItem[];
 }) => {
+    const { t } = useTranslation();
 
     const itemsAvatar: AvatarItem[] = [
         {
@@ -79,6 +83,26 @@ const AppHeader = ({
                         }}>
                         <Menu size={20} />
                     </button>
+                    <div
+                        className="px-4 py-2 rounded-xl transition-all duration-300"
+                        style={{
+                            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.25), rgba(118, 75, 162, 0.20))",
+                            backdropFilter: "blur(15px)",
+                            WebkitBackdropFilter: "blur(15px)",
+                            border: "1px solid rgba(255, 255, 255, 0.5)",
+                            boxShadow: "0 4px 16px rgba(102, 126, 234, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.6)",
+                        }}>
+                        <h3
+                            className="font-semibold text-lg whitespace-nowrap"
+                            style={{
+                                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundClip: "text",
+                            }}>
+                            {menu.find((item) => item.href === window.location.pathname)?.label}
+                        </h3>
+                    </div>
                 </div>
                 <div className="flex items-center gap-3">
                     <button
@@ -116,7 +140,7 @@ const AppHeader = ({
                             e.currentTarget.style.background = "rgba(255, 255, 255, 0.4)";
                             e.currentTarget.style.transform = "translateY(0) scale(1)";
                             e.currentTarget.style.boxShadow = "none";
-                        }}>   
+                        }}>
                         <AvatarDropdown
                             user={user}
                             items={itemsAvatar}

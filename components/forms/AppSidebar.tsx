@@ -20,44 +20,33 @@ import { useMemo, useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export type SidebarMode = "expanded" | "collapsed" | "auto";
-export interface AppSidebarProps {
+export interface MenuItem {
+    icon: React.ReactNode;
+    label: string;
+    href: string;
+}
+interface Props {
     mode?: SidebarMode;
     expandedWidth?: number;
     collapsedWidth?: number;
     enableHover?: boolean;
     setMode?: (mode: SidebarMode) => void;
+    menu?: MenuItem[];
 }
 
-const AppSidebar = (props: AppSidebarProps) => {
-    const { mode, expandedWidth, collapsedWidth, enableHover, setMode } = props;
+const AppSidebar = (props: Props) => {
+    const { mode, expandedWidth, collapsedWidth, enableHover, setMode, menu } = props;
     const [hovered, setHovered] = useState(false);
-    const pathname = usePathname();
+    const { t } = useTranslation();
 
     const isOpen = useMemo(() => {
         if (mode === "expanded") return true;
         if (mode === "collapsed") return false;
         return hovered;
     }, [mode, hovered]);
-
-    const menu: { icon: React.ReactNode, label: string, href: string }[] = [
-        {
-            icon: <Gauge size={22} />,
-            label: "Bảng điều khiển",
-            href: "/dashboard",
-        },
-        {
-            icon: <Users size={22} />,
-            label: "Người dùng",
-            href: "/users",
-        },
-        {
-            icon: <BookHeart size={22} />,
-            label: "Banner",
-            href: "/banners",
-        }
-    ];
 
     return (
         <Sidebar
@@ -99,8 +88,8 @@ const AppSidebar = (props: AppSidebarProps) => {
                     "transition-all",
                     isOpen ? "space-y-2 px-2" : "space-y-2 px-1"
                 )}>
-                    {menu.map((item) => {
-                        const isActive = pathname === item.href;
+                    {menu && menu.map((item) => {
+                        const isActive = usePathname() === item.href;
                         return (
                             <Link
                                 key={item.label}
@@ -186,7 +175,7 @@ const AppSidebar = (props: AppSidebarProps) => {
                                     <ArrowLeftFromLine size={18} />
                                 </div>
                             </TooltipTrigger>
-                            <TooltipContent>Đóng menu</TooltipContent>
+                            <TooltipContent>{t("common:close")}</TooltipContent>
                         </Tooltip>
                     )}
 
@@ -212,7 +201,7 @@ const AppSidebar = (props: AppSidebarProps) => {
                                     <ArrowRightFromLine size={18} />
                                 </div>
                             </TooltipTrigger>
-                            <TooltipContent>Mở menu</TooltipContent>
+                            <TooltipContent>{t("common:open")}</TooltipContent>
                         </Tooltip>
                     )}
 
@@ -238,7 +227,7 @@ const AppSidebar = (props: AppSidebarProps) => {
                                     <ArrowLeftRight size={18} />
                                 </div>
                             </TooltipTrigger>
-                            <TooltipContent>Tự động</TooltipContent>
+                            <TooltipContent>{t("common:auto")}</TooltipContent>
                         </Tooltip>
                     )}
                 </div>
