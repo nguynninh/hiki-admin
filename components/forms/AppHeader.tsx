@@ -136,7 +136,7 @@ const AppHeader = ({
                             }}>
                             <BellRing size={20} />
                         </button>
-                        <button
+                        <div
                             className="py-1.5 px-2.5 rounded-xl transition-all duration-300"
                             style={{
                                 background: "rgba(255, 255, 255, 0.4)",
@@ -157,7 +157,7 @@ const AppHeader = ({
                                 user={user}
                                 items={itemsAvatar}
                             />
-                        </button>
+                        </div>
                     </div>
                 </div>
             </Card>

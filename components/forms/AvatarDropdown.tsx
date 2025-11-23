@@ -66,7 +66,7 @@ const AvatarDropdown = (props: Props) => {
                         "0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)",
                 }}>
 
-                {items.map((item, index) => (
+                {items && items.map((item, index) => (
                     <>
                         <DropdownMenuItem
                             key={index}

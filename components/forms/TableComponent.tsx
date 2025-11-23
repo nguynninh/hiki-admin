@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface Props {
@@ -9,28 +8,24 @@ interface Props {
 const TableComponent = (props: Props) => {
     const { columns, data } = props;
 
-    return (
-        <Card>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        {columns.map((column: any) => (
-                            <TableHead key={column.key}>{column.title}</TableHead>
-                        ))}
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.map((item: any) => (
-                        <TableRow key={item.key}>
-                            {columns.map((column: any) => (
-                                <TableCell key={column.key}>{item[column.key]}</TableCell>
-                            ))}
-                        </TableRow>
+    return <Table>
+        <TableHeader>
+            <TableRow>
+                {columns.map((column: any) => (
+                    <TableHead key={column.key}>{column.title}</TableHead>
+                ))}
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            {data.map((item: any) => (
+                <TableRow key={item.key}>
+                    {columns.map((column: any) => (
+                        <TableCell key={column.key}>{item[column.key]}</TableCell>
                     ))}
-                </TableBody>
-            </Table>
-        </Card>
-    );
+                </TableRow>
+            ))}
+        </TableBody>
+    </Table>;
 };
 
 export default TableComponent;

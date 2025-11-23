@@ -1,6 +1,10 @@
+"use client";
 import { TableComponent } from "@/components/forms";
+import { Card } from "@/components/ui/card";
+import { useState } from "react";
 
 const UsersPage = () => {
+    const [loading, setLoading] = useState(false);
     const columns = [
         {
             title: "Username",
@@ -27,9 +31,9 @@ const UsersPage = () => {
         },
     ];
     return (
-        <div>
+        <Card>
             <TableComponent columns={columns} data={data} />
-        </div>
+        </Card>
     );
 };
 
