@@ -9,8 +9,7 @@ const UsersPage = () => {
                 fontSize: "2rem",
                 fontWeight: "bold",
                 fontFamily: "sans-serif",
-            }}
-        >
+            }}>
             Danh sách banner
         </div>
     );
