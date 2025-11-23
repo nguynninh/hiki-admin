@@ -1,17 +1,34 @@
+import { TableComponent } from "@/components/forms";
+
 const UsersPage = () => {
+    const columns = [
+        {
+            title: "Username",
+            dataIndex: "username",
+            key: "username",
+        },
+        {
+            title: "Email",
+            dataIndex: "email",
+            key: "email",
+        },
+        {
+            title: "Role",
+            dataIndex: "role",
+            key: "role",
+        }
+    ];
+
+    const data = [
+        {
+            username: "John Doe",
+            email: "john.doe@example.com",
+            role: "Admin",
+        },
+    ];
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                fontSize: "2rem",
-                fontWeight: "bold",
-                fontFamily: "sans-serif",
-            }}
-        >
-            Danh sách người dùng
+        <div>
+            <TableComponent columns={columns} data={data} />
         </div>
     );
 };
