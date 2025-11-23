@@ -21,9 +21,16 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import clsx from "clsx";
 
 export type SidebarMode = "expanded" | "collapsed" | "auto";
+export interface AppSidebarProps {
+    mode?: SidebarMode;
+    expandedWidth?: number;
+    collapsedWidth?: number;
+    enableHover?: boolean;
+    setMode?: (mode: SidebarMode) => void;
+}
 
-const AppSidebar = () => {
-    const [mode, setMode] = useState<SidebarMode>("expanded");
+const AppSidebar = (props: AppSidebarProps) => {
+    const { mode, expandedWidth, collapsedWidth, enableHover, setMode } = props;
     const [hovered, setHovered] = useState(false);
 
     const isOpen = useMemo(() => {
@@ -52,16 +59,16 @@ const AppSidebar = () => {
 
     return (
         <Sidebar
-            className={clsx(
-                "h-screen border-r bg-white transition-all duration-300",
-                isOpen ? "w-60" : "w-[60px]"
-            )}
+            className="h-screen border-r bg-white transition-all duration-300"
+            style={{
+                width: isOpen ? `${expandedWidth}px` : `${collapsedWidth}px`
+            }}
             onMouseEnter={() => mode === "auto" && setHovered(true)}
             onMouseLeave={() => mode === "auto" && setHovered(false)}>
             <SidebarHeader>
                 <div className={clsx(
                     "flex items-center overflow-hidden transition-all",
-                    isOpen ? "justify-start px-2 gap-2" : "justify-center"
+                    isOpen ? "justify-start gap-3" : "justify-center"
                 )}>
                     <Link href={appInfos.logo.url} className="flex items-center gap-2">
                         <h1 className={clsx(
@@ -75,7 +82,7 @@ const AppSidebar = () => {
                 <hr />
             </SidebarHeader>
 
-            <SidebarContent className="flex flex-col gap-1">
+            <SidebarContent>
                 <SidebarGroup className="space-y-1">
                     {menu.map((item) => (
                         <Link
@@ -83,7 +90,7 @@ const AppSidebar = () => {
                             href={item.href}
                             className={clsx(
                                 "flex items-center rounded-lg p-2 transition-all cursor-pointer",
-                                isOpen ? "justify-start gap-3" : "justify-center"
+                                isOpen ? "justify-start gap-3" : "justify-center gap-2"
                             )}>
                             {item.icon}
                             <span
@@ -107,7 +114,7 @@ const AppSidebar = () => {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <ArrowLeftFromLine
-                                    onClick={() => setMode("collapsed")}
+                                    onClick={() => setMode && setMode("collapsed")}
                                     className="cursor-pointer"
                                 />
                             </TooltipTrigger>
@@ -119,7 +126,7 @@ const AppSidebar = () => {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <ArrowRightFromLine
-                                    onClick={() => setMode("expanded")}
+                                    onClick={() => setMode && setMode("expanded")}
                                     className="cursor-pointer"
                                 />
                             </TooltipTrigger>
@@ -131,7 +138,7 @@ const AppSidebar = () => {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <ArrowLeftRight
-                                    onClick={() => setMode("auto")}
+                                    onClick={() => setMode && setMode("auto")}
                                     className="cursor-pointer"
                                 />
                             </TooltipTrigger>
