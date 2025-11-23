@@ -12,6 +12,11 @@ import {
 } from "@/components/ui/card";
 import InputComponent from "@/components/forms/InputComponent";
 import authAPI from "@/apis/authAPI";
+import { useDispatch } from "react-redux";
+import { addAuth } from "@/redux/reducers/authReducer";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { addUser } from "@/redux/reducers/userReducer";
 
 interface LoginForm {
   email: string;
@@ -30,6 +35,8 @@ const LoginPage = () => {
     password: "",
     rememberMe: false,
   });
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<LoginFormErrors>({});
 
@@ -75,16 +82,15 @@ const LoginPage = () => {
         },
         "post"
       );
-      console.log("Login successful:", res);
-    } catch (error) {
-      console.error("Login failed:", error);
+      toast.success("Đăng nhập thành công");
+      dispatch(addAuth(res.data.auth));
+      dispatch(addUser(res.data.user));
+      router.replace("/");
+    } catch (error: any) {
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   };
 
   return (

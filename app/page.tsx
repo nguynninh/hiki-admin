@@ -1,7 +1,15 @@
-import LoginPage from "./(auth)/login/page";
+"use client";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import Router from "./router";
+import { toast } from "sonner";
 
-export default function Home() {
+const App = () => {
   return (
-    <LoginPage />
+    <Provider store={store}>
+      <Router />
+    </Provider>
   );
-}
+};
+
+export default App;
