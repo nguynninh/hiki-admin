@@ -8,6 +8,7 @@ import MainLayout from "@/app/(main)/layout";
 import AuthLayout from "@/app/(auth)/layout";
 import handleAPI from "@/apis/handleAPI";
 import { SpinComponent } from "@/components/forms";
+import DashboardPage from "./(main)/dashboard/page";
 
 const Router = () => {
     const [loading, setLoading] = useState(false);
@@ -72,7 +73,7 @@ const Router = () => {
             <SpinComponent />
         </div>);
 
-    return auth?.access_token ? <MainLayout /> : <AuthLayout />
+    return auth?.access_token ? <MainLayout><DashboardPage /></MainLayout> : <AuthLayout />
 };
 
 export default Router;
