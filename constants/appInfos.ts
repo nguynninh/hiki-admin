@@ -7,7 +7,7 @@ export const localDataNames = {
 export const appInfos = {
   logo: {
     name: "Hiki",
-    url: "https://hiki.com",
+    url: "http://localhost:3000",
     font: lovelyHome.className
   }
 }

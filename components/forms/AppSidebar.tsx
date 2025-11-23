@@ -65,15 +65,9 @@ export function AppSidebar() {
                     isOpen ? "justify-start px-2 gap-2" : "justify-center"
                 )}>
                     <Link href={appInfos.logo.url} className="flex items-center gap-2">
-                        <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center text-white font-bold">
-                            {appInfos.logo.name.charAt(0)}
-                        </div>
-
                         <h1 className={clsx(
                             "text-xl font-bold whitespace-nowrap transition-all duration-300",
-                            isOpen
-                                ? "opacity-100 translate-x-0 w-auto"
-                                : "opacity-0 -translate-x-4 w-0 overflow-hidden"
+                            appInfos.logo.font,
                         )}>
                             {appInfos.logo.name}
                         </h1>
