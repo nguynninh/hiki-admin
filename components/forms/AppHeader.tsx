@@ -3,11 +3,12 @@ import { AvatarDropdown } from "@/components/forms";
 import { MenuItem, SidebarMode } from "@/components/forms/AppSidebar";
 import { AvatarItem } from "@/components/forms/AvatarDropdown";
 import UserModel from "@/models/UserModel";
-import { BellRing, Globe, Menu, Settings, Sun, User } from "lucide-react";
+import { Atom, BellRing, Globe, Menu, Moon, Settings, Sun, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { usePathname } from "next/navigation";
 import { Card } from "@/components/ui/card";
+import { useTheme } from "next-themes";
 
 const AppHeader = ({
     user,
@@ -20,6 +21,7 @@ const AppHeader = ({
     setSidebarMode?: (mode: SidebarMode) => void;
     menu: MenuItem[];
 }) => {
+    const { setTheme } = useTheme();
     const { t } = useTranslation();
     const pathname = usePathname();
     const [namePage, setNamePage] = useState<string>("");
@@ -43,6 +45,23 @@ const AppHeader = ({
         {
             icon: <Sun size={18} className="text-yellow-600" />,
             label: t("common:theme"),
+            children: [
+                {
+                    icon: <Sun size={18} className="text-yellow-600" />,
+                    label: t("common:light"),
+                    onClick: () => setTheme("light"),
+                },
+                {
+                    icon: <Moon size={18} className="text-blue-600" />,
+                    label: t("common:dark"),
+                    onClick: () => setTheme("dark"),
+                },
+                {
+                    icon: <Atom size={18} className="text-blue-600" />,
+                    label: t("common:system"),
+                    onClick: () => setTheme("system"),
+                }
+            ],
         },
         {
             icon: <Settings size={18} className="text-blue-600" />,

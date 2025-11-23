@@ -1,13 +1,16 @@
 "use client";
 
 import React from "react";
-import { LogOut, Settings, Globe, User } from "lucide-react";
+import { LogOut, Settings, Globe, User, ChevronRight } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
+    DropdownMenuSub,
+    DropdownMenuSubTrigger,
+    DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
 import UserModel from "@/models/UserModel";
 import { useTranslation } from "react-i18next";
@@ -16,6 +19,7 @@ export interface AvatarItem {
     icon: React.ReactNode;
     label: string;
     onClick?: () => void;
+    children?: AvatarItem[];
 }
 
 interface Props {
@@ -30,6 +34,144 @@ const AvatarDropdown = (props: Props) => {
 
     const handleLogout = () => {
         console.log("Đăng xuất");
+    };
+
+    const renderMenuItem = (item: AvatarItem, index: number) => {
+        if (item.children && item.children.length > 0) {
+            return (
+                <DropdownMenuSub key={index}>
+                    <DropdownMenuSubTrigger
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300"
+                        style={{
+                            background: "transparent",
+                            backdropFilter: "none",
+                            WebkitBackdropFilter: "none",
+                            border: "1px solid transparent",
+                            boxShadow: "none",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))";
+                            e.currentTarget.style.backdropFilter = "blur(10px)";
+                            (e.currentTarget.style as any).WebkitBackdropFilter = "blur(10px)";
+                            e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "transparent";
+                            e.currentTarget.style.backdropFilter = "none";
+                            (e.currentTarget.style as any).WebkitBackdropFilter = "none";
+                            e.currentTarget.style.borderColor = "transparent";
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "none";
+                        }}>
+                        <div
+                            className="p-2 rounded-lg"
+                            style={{
+                                background: "transparent",
+                                border: "none",
+                            }}>
+                            {item.icon}
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">{item.label}</span>
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent
+                        className="p-2"
+                        sideOffset={2}
+                        alignOffset={-5}
+                        style={{
+                            background:
+                                "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7))",
+                            backdropFilter: "blur(20px)",
+                            WebkitBackdropFilter: "blur(20px)",
+                            borderRadius: "12px",
+                            border: "1px solid rgba(255, 255, 255, 0.5)",
+                            boxShadow:
+                                "0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)",
+                        }}>
+                        {item.children.map((child, childIndex) => (
+                            <DropdownMenuItem
+                                key={childIndex}
+                                onClick={child.onClick}
+                                className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300"
+                                style={{
+                                    background: "transparent",
+                                    backdropFilter: "none",
+                                    WebkitBackdropFilter: "none",
+                                    border: "1px solid transparent",
+                                    boxShadow: "none",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))";
+                                    e.currentTarget.style.backdropFilter = "blur(10px)";
+                                    (e.currentTarget.style as any).WebkitBackdropFilter = "blur(10px)";
+                                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                                    e.currentTarget.style.transform = "translateY(-2px)";
+                                    e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = "transparent";
+                                    e.currentTarget.style.backdropFilter = "none";
+                                    (e.currentTarget.style as any).WebkitBackdropFilter = "none";
+                                    e.currentTarget.style.borderColor = "transparent";
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                    e.currentTarget.style.boxShadow = "none";
+                                }}>
+                                <div
+                                    className="p-2 rounded-lg"
+                                    style={{
+                                        background: "transparent",
+                                        border: "none",
+                                    }}>
+                                    {child.icon}
+                                </div>
+                                <span className="text-sm font-medium text-gray-700">{child.label}</span>
+                            </DropdownMenuItem>
+                        ))}
+                    </DropdownMenuSubContent>
+                </DropdownMenuSub>
+            );
+        }
+
+        return (
+            <DropdownMenuItem
+                key={index}
+                onClick={item.onClick}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300"
+                style={{
+                    background: "transparent",
+                    backdropFilter: "none",
+                    WebkitBackdropFilter: "none",
+                    border: "1px solid transparent",
+                    boxShadow: "none",
+                }}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))";
+                    e.currentTarget.style.backdropFilter = "blur(10px)";
+                    (e.currentTarget.style as any).WebkitBackdropFilter = "blur(10px)";
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)";
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.backdropFilter = "none";
+                    (e.currentTarget.style as any).WebkitBackdropFilter = "none";
+                    e.currentTarget.style.borderColor = "transparent";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                }}>
+                <div
+                    className="p-2 rounded-lg"
+                    style={{
+                        background: "transparent",
+                        border: "none",
+                    }}>
+                    {item.icon}
+                </div>
+                <span className="text-sm font-medium text-gray-700">{item.label}</span>
+            </DropdownMenuItem>
+        );
     };
 
     return (
@@ -67,51 +209,15 @@ const AvatarDropdown = (props: Props) => {
                 }}>
 
                 {items && items.map((item, index) => (
-                    <>
-                        <DropdownMenuItem
-                            key={index}
-                            onClick={item.onClick}
-                            className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300"
-                            style={{
-                                background: "transparent",
-                                backdropFilter: "none",
-                                WebkitBackdropFilter: "none",
-                                border: "1px solid transparent",
-                                boxShadow: "none",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))";
-                                e.currentTarget.style.backdropFilter = "blur(10px)";
-                                (e.currentTarget.style as any).WebkitBackdropFilter = "blur(10px)";
-                                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)";
-                                e.currentTarget.style.transform = "translateY(-2px)";
-                                e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.background = "transparent";
-                                e.currentTarget.style.backdropFilter = "none";
-                                (e.currentTarget.style as any).WebkitBackdropFilter = "none";
-                                e.currentTarget.style.borderColor = "transparent";
-                                e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "none";
-                            }}>
-                            <div
-                                className="p-2 rounded-lg"
-                                style={{
-                                    background: "transparent",
-                                    border: "none",
-                                }}>
-                                {item.icon}
-                            </div>
-                            <span className="text-sm font-medium text-gray-700">{item.label}</span>
-                        </DropdownMenuItem>
+                    <React.Fragment key={index}>
+                        {renderMenuItem(item, index)}
                         <DropdownMenuSeparator
                             style={{
                                 background: "rgba(200, 200, 200, 0.15)",
                                 margin: "1px 0",
                             }}
                         />
-                    </>
+                    </React.Fragment>
                 ))}
 
                 <DropdownMenuSeparator
