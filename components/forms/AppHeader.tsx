@@ -22,7 +22,7 @@ const AppHeader = ({
     menu: MenuItem[];
 }) => {
     const { setTheme } = useTheme();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const pathname = usePathname();
     const [namePage, setNamePage] = useState<string>("");
 
@@ -41,6 +41,28 @@ const AppHeader = ({
         {
             icon: <Globe size={18} className="text-green-600" />,
             label: t("common:language"),
+            children: [
+                {
+                    icon: '🇺🇸',
+                    label: t("common:english"),
+                    onClick: () => i18n.changeLanguage("en"),
+                },
+                {
+                    icon: '🇻🇳',
+                    label: t("common:vietnamese"),
+                    onClick: () => i18n.changeLanguage("vi"),
+                },
+                {
+                    icon: '🇨🇳',
+                    label: t("common:chinese"),
+                    onClick: () => i18n.changeLanguage("cn"),
+                },
+                {
+                    icon: '🇯🇵',
+                    label: t("common:japan"),
+                    onClick: () => i18n.changeLanguage("jp"),
+                }
+            ],
         },
         {
             icon: <Sun size={18} className="text-yellow-600" />,
@@ -90,29 +112,24 @@ const AppHeader = ({
                     <div className="flex items-center gap-2">
                         <button
                             onClick={handleToggleSidebar}
-                            className="p-2.5 rounded-xl transition-all duration-300 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 hover:shadow-md group"
-                        >
+                            className="p-2.5 rounded-xl transition-all duration-300 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 hover:shadow-md group">
                             <Menu size={20} className="text-foreground group-hover:scale-110 transition-transform" />
                         </button>
                         <div
-                            className="px-4 py-2 rounded-xl transition-all duration-300 bg-primary/10 backdrop-blur-md border border-white/20 shadow-inner"
-                        >
+                            className="px-4 py-2 rounded-xl transition-all duration-300 bg-primary/10 backdrop-blur-md border border-white/20 shadow-inner">
                             <h3
-                                className="font-semibold text-lg whitespace-nowrap bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent"
-                            >
+                                className="font-semibold text-lg whitespace-nowrap bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
                                 {namePage}
                             </h3>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
                         <button
-                            className="p-2.5 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 hover:shadow-md group"
-                        >
+                            className="p-2.5 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 hover:shadow-md group">
                             <BellRing size={20} className="text-foreground group-hover:scale-110 transition-transform" />
                         </button>
                         <div
-                            className="py-1.5 px-2.5 rounded-xl transition-all duration-300 bg-white/20 backdrop-blur-md border border-white/30 hover:shadow-md"
-                        >
+                            className="py-1.5 px-2.5 rounded-xl transition-all duration-300 bg-white/20 backdrop-blur-md border border-white/30 hover:shadow-md">
                             <AvatarDropdown
                                 user={user}
                                 items={itemsAvatar}

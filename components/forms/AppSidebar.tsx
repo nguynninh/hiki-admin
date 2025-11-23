@@ -91,7 +91,7 @@ const AppSidebar = (props: Props) => {
                                 href={item.href}
                                 className={clsx(
                                     "flex items-center rounded-xl transition-all duration-300 cursor-pointer relative overflow-hidden",
-                                    isOpen ? "justify-start gap-3 p-2" : "justify-center gap-0 p-1 m-2"
+                                    isOpen ? "justify-start gap-3 p-3" : "justify-center gap-0 p-1 m-2"
                                 )}
                                 style={{
                                     background: isActive

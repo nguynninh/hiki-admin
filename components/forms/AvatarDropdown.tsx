@@ -41,11 +41,9 @@ const AvatarDropdown = (props: Props) => {
             return (
                 <DropdownMenuSub key={index}>
                     <DropdownMenuSubTrigger
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md group"
-                    >
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md group">
                         <div
-                            className="p-2 rounded-lg bg-transparent"
-                        >
+                            className="p-2 rounded-lg bg-transparent">
                             {item.icon}
                         </div>
                         <span className="text-sm font-medium text-gray-700 dark:text-white group-hover:translate-x-1 transition-transform">{item.label}</span>
@@ -53,14 +51,12 @@ const AvatarDropdown = (props: Props) => {
                     <DropdownMenuSubContent
                         className="p-2 bg-popover/80 backdrop-blur-xl border-white/20 shadow-2xl rounded-2xl"
                         sideOffset={2}
-                        alignOffset={-5}
-                    >
+                        alignOffset={-5}>
                         {item.children.map((child, childIndex) => (
                             <DropdownMenuItem
                                 key={childIndex}
                                 onClick={child.onClick}
-                                className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md group"
-                            >
+                                className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md group">
                                 <div
                                     className="p-2 rounded-lg bg-transparent">
                                     {child.icon}
@@ -79,8 +75,7 @@ const AvatarDropdown = (props: Props) => {
                 onClick={item.onClick}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-md group">
                 <div
-                    className="p-2 rounded-lg bg-transparent"
-                >
+                    className="p-2 rounded-lg bg-transparent">
                     {item.icon}
                 </div>
                 <span className="text-sm font-medium text-gray-700 dark:text-white group-hover:translate-x-1 transition-transform">{item.label}</span>
@@ -111,8 +106,7 @@ const AvatarDropdown = (props: Props) => {
                 className="w-64 p-2 gap-3 bg-popover/80 backdrop-blur-xl border-white/20 shadow-2xl rounded-2xl"
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
-                sideOffset={5}
-            >
+                sideOffset={5}>
 
                 {items && items.map((item, index) => (
                     <React.Fragment key={index}>
@@ -129,11 +123,9 @@ const AvatarDropdown = (props: Props) => {
 
                 <DropdownMenuItem
                     onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-red-500/10 hover:backdrop-blur-md group"
-                >
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer outline-none transition-all duration-300 hover:bg-red-500/10 hover:backdrop-blur-md group">
                     <div
-                        className="p-2 rounded-lg bg-transparent"
-                    >
+                        className="p-2 rounded-lg bg-transparent">
                         <LogOut size={18} className="text-red-600 group-hover:scale-110 transition-transform" />
                     </div>
                     <span className="text-sm font-medium text-red-600 group-hover:translate-x-1 transition-transform">{t("common:logout")}</span>
