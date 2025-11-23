@@ -11,7 +11,7 @@ const handleAPI = async (
 
     if (res) {
       const auth = JSON.parse(res);
-      return auth && auth.token ? auth.token : "";
+      return auth && auth.access_token ? auth.access_token : "";
     } else {
       return "";
     }
