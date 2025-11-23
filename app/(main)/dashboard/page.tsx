@@ -1,17 +1,10 @@
+import { Gauge } from "lucide-react";
+
 const DashboardPage = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontSize: "2rem",
-        fontWeight: "bold",
-        fontFamily: "sans-serif",
-      }}
-    >
-      Hello from Hiki! 👋
+    <div className="w-full h-screen flex flex-col items-center justify-center text-2xl font-bold gap-3">
+      <Gauge size={40} />
+      <h1>Hello from Hiki! 👋</h1>
     </div>
   );
 };
