@@ -6,9 +6,11 @@ import UserModel from "@/models/UserModel";
 import { useTranslation } from "react-i18next";
 import { Edit, Trash2, Undo2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useRouter } from "next/navigation";
 
 const UsersPage = () => {
     const { t } = useTranslation();
+    const router = useRouter();
     const [query, updateQuery, resetQuery] = useQuery({
         page: 1,
         limit: 10,
@@ -42,10 +44,6 @@ const UsersPage = () => {
         }
     ];
 
-    const handleEdit = (item: UserModel) => {
-        console.log(item);
-    };
-
     const handleDelete = (item: UserModel) => {
         console.log(item);
     };
@@ -70,7 +68,7 @@ const UsersPage = () => {
                             </TooltipContent>
                             <TooltipTrigger>
                                 <button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-blue-600"
-                                    onClick={() => handleEdit(item)}>
+                                    onClick={() => router.push(`/users/${item.id}/edit`)}>
                                     <Edit size={18} />
                                 </button>
                             </TooltipTrigger>
