@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useQuery, useFetchList } from "@/lib/hooks";
 import UserModel from "@/models/UserModel";
 import { useTranslation } from "react-i18next";
+import { Edit, Trash2, Undo2 } from "lucide-react";
 
 const UsersPage = () => {
     const { t } = useTranslation();
@@ -40,6 +41,18 @@ const UsersPage = () => {
         }
     ];
 
+    const handleEdit = (item: UserModel) => {
+        console.log(item);
+    };
+
+    const handleDelete = (item: UserModel) => {
+        console.log(item);
+    };
+
+    const handleRestore = (item: UserModel) => {
+        console.log(item);
+    };
+
     return (
         <Card>
             <TableComponent
@@ -48,6 +61,22 @@ const UsersPage = () => {
                 pagination={pagination}
                 onChangePage={(page: any) => updateQuery({ page })}
                 typeList="checkbox"
+                renderAction={(item: UserModel) => (
+                    <div className="flex items-center justify-center gap-2">
+                        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-blue-600"
+                            onClick={() => handleEdit(item)}>
+                            <Edit size={18} />
+                        </button>
+                        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-red-600"
+                            onClick={() => handleDelete(item)}>
+                            <Trash2 size={18} />
+                        </button>
+                        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-green-600"
+                            onClick={() => handleRestore(item)}>
+                            <Undo2 size={18} />
+                        </button>
+                    </div>
+                )}
             />
         </Card>
     );

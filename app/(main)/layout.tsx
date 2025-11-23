@@ -63,7 +63,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 }}
                 className="flex-1 transition-all duration-300">
                 <div className="w-full my-2">
-                    <div className="m-3">
+                    <div className="m-2">
                         <AppHeader
                             user={user}
                             sidebarMode={mode}
@@ -71,7 +71,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                             menu={menu}
                         />
                     </div>
-                    <div className="m-3">
+                    <div className="m-2">
                         {children}
                     </div>
                 </div>

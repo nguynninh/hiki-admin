@@ -11,7 +11,8 @@ interface Props {
     data: any;
     pagination: PaginationModel;
     onChangePage: (page: number) => void;
-    typeList?: 'checkbox' | 'stt'
+    typeList?: 'checkbox' | 'stt';
+    renderAction?: (item: any) => React.ReactNode;
 }
 
 const getColorFromString = (str: string) => {
@@ -48,7 +49,7 @@ const LiquidGlassTag = ({ text }: { text: string }) => {
 };
 
 const TableComponent = (props: Props) => {
-    const { columns, data, pagination, onChangePage } = props;
+    const { columns, data, pagination, onChangePage, renderAction } = props;
     const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
     const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +77,7 @@ const TableComponent = (props: Props) => {
                 <TableHeader>
                     <TableRow>
                         {props.typeList === 'checkbox' && (
-                            <TableHead className="w-full flex items-center justify-center">
+                            <TableHead className="w-[50px] text-center">
                                 <input
                                     type="checkbox"
                                     className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
@@ -86,11 +87,14 @@ const TableComponent = (props: Props) => {
                             </TableHead>
                         )}
                         {props.typeList === 'stt' && (
-                            <TableHead className="w-[50px]">STT</TableHead>
+                            <TableHead className="w-[50px] text-center">STT</TableHead>
                         )}
                         {columns.map((column: any) => (
                             <TableHead key={column.key}>{column.title}</TableHead>
                         ))}
+                        {renderAction && (
+                            <TableHead className="text-left w-[100px]">Hành động</TableHead>
+                        )}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -130,6 +134,11 @@ const TableComponent = (props: Props) => {
                                     )}
                                 </TableCell>
                             ))}
+                            {renderAction && (
+                                <TableCell className="flex justify-left">
+                                    {renderAction(item)}
+                                </TableCell>
+                            )}
                         </TableRow>
                     ))}
                 </TableBody>
