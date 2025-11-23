@@ -50,14 +50,9 @@ const AppSidebar = (props: Props) => {
 
     return (
         <Sidebar
-            className="h-screen transition-all duration-300"
+            className="h-screen transition-all duration-300 bg-sidebar backdrop-blur-xl border-r border-sidebar-border shadow-2xl"
             style={{
                 width: isOpen ? `${expandedWidth}px` : `${collapsedWidth}px`,
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.4))",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                borderRight: "1px solid rgba(255, 255, 255, 0.5)",
-                boxShadow: "4px 0 24px rgba(31, 38, 135, 0.1), inset -1px 0 0 0 rgba(255, 255, 255, 0.8)",
             }}
             onMouseEnter={() => mode === "auto" && setHovered(true)}
             onMouseLeave={() => mode === "auto" && setHovered(false)}>
@@ -96,7 +91,7 @@ const AppSidebar = (props: Props) => {
                                 href={item.href}
                                 className={clsx(
                                     "flex items-center rounded-xl transition-all duration-300 cursor-pointer relative overflow-hidden",
-                                    isOpen ? "justify-start gap-3 p-2.5" : "justify-center gap-0 p-2.5"
+                                    isOpen ? "justify-start gap-3 p-2" : "justify-center gap-0 p-1 m-2"
                                 )}
                                 style={{
                                     background: isActive
@@ -104,8 +99,8 @@ const AppSidebar = (props: Props) => {
                                         : "rgba(255, 255, 255, 0.3)",
                                     backdropFilter: "blur(10px)",
                                     border: isActive
-                                        ? "1px solid rgba(102, 126, 234, 0.6)"
-                                        : "1px solid rgba(255, 255, 255, 0.4)",
+                                        ? "1px solid rgba(102, 126, 234, 0.8)"
+                                        : "1px solid rgba(255, 255, 255, 0.6)",
                                     boxShadow: isActive
                                         ? "0 4px 12px rgba(102, 126, 234, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.5)"
                                         : "none",
