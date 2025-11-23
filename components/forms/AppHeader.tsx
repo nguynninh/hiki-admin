@@ -30,7 +30,7 @@ const AppHeader = ({
         }
         pathname = pathname.replace("/", "_");
         setNamePage(t(`common:${pathname}`));
-    }, [pathname]);
+    }, [pathname, t]);
 
     const itemsAvatar: AvatarItem[] = [
         {

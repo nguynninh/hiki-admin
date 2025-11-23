@@ -1,7 +1,7 @@
 {
     "dashboard": "ダッシュボード",
     "users": "ユーザー",
-    "users_list": "ユーザー一覧",
+    "users_list": "ユーザーリスト",
     "users_create": "ユーザー作成",
     "users_edit": "ユーザー編集",
     "banner": "バナー",
@@ -17,6 +17,12 @@
     "system": "システム",
     "profile": "プロフィール",
     "logout": "ログアウト",
+    "stt": "番号",
+    "action": "アクション",
+    "edit": "編集",
+    "delete": "削除",
+    "restore": "復元",
+    "deleteSelected": "選択を削除",
     "auto": "自動",
     "open": "開く",
     "close": "閉じる"

@@ -46,7 +46,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         },
         {
             icon: <BookHeart size={22} />,
-            label: t("common:banner"),
+            label: t("common:banners"),
             href: "/banners",
         }
     ];

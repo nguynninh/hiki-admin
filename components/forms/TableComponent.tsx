@@ -103,13 +103,15 @@ const TableComponent = (props: Props) => {
                     {data.map((item: any, index: number) => (
                         <TableRow key={item.id}>
                             {props.typeList === 'checkbox' && (
-                                <TableCell className="w-full flex items-center justify-center">
-                                    <input
-                                        type="checkbox"
-                                        className="flex items-center justify-center accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                                        checked={selectedRows.includes(item.id)}
-                                        onChange={() => handleSelectRow(item.id)}
-                                    />
+                                <TableCell className="text-center">
+                                    <div className="flex items-center justify-center h-full">
+                                        <input
+                                            type="checkbox"
+                                            className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                            checked={selectedRows.includes(item.id)}
+                                            onChange={() => handleSelectRow(item.id)}
+                                        />
+                                    </div>
                                 </TableCell>
                             )}
                             {props.typeList === 'stt' && (
