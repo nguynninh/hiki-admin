@@ -1,8 +1,9 @@
 "use client";
-import { AvatarComponent, InputSearchComponent } from "@/components/forms";
+import { AvatarDropdown } from "@/components/forms";
 import { SidebarMode } from "@/components/forms/AppSidebar";
+import { AvatarItem } from "@/components/forms/AvatarDropdown";
 import UserModel from "@/models/UserModel";
-import { BellRing, Menu } from "lucide-react";
+import { BellRing, Globe, Menu, Settings, Sun, User } from "lucide-react";
 
 const AppHeader = ({
     user,
@@ -13,6 +14,26 @@ const AppHeader = ({
     sidebarMode?: SidebarMode;
     setSidebarMode?: (mode: SidebarMode) => void;
 }) => {
+
+    const itemsAvatar: AvatarItem[] = [
+        {
+            icon: <User size={18} className="text-gray-600" />,
+            label: "Hồ sơ",
+        },
+        {
+            icon: <Globe size={18} className="text-green-600" />,
+            label: "Ngôn ngữ",
+        },
+        {
+            icon: <Sun size={18} className="text-yellow-600" />,
+            label: "Chế độ sáng tối",
+        },
+        {
+            icon: <Settings size={18} className="text-blue-600" />,
+            label: "Cài đặt",
+        },
+    ];
+
     const handleToggleSidebar = () => {
         if (!setSidebarMode) return;
 
@@ -55,8 +76,7 @@ const AppHeader = ({
                             e.currentTarget.style.background = "rgba(255, 255, 255, 0.3)";
                             e.currentTarget.style.transform = "translateY(0)";
                             e.currentTarget.style.boxShadow = "none";
-                        }}
-                    >
+                        }}>
                         <Menu size={20} />
                     </button>
                 </div>
@@ -77,8 +97,7 @@ const AppHeader = ({
                             e.currentTarget.style.background = "rgba(255, 255, 255, 0.4)";
                             e.currentTarget.style.transform = "translateY(0) scale(1)";
                             e.currentTarget.style.boxShadow = "none";
-                        }}
-                    >
+                        }}>
                         <BellRing size={20} />
                     </button>
                     <button
@@ -98,10 +117,9 @@ const AppHeader = ({
                             e.currentTarget.style.transform = "translateY(0) scale(1)";
                             e.currentTarget.style.boxShadow = "none";
                         }}>   
-                        <AvatarComponent
-                            image={user.avatar}
-                            name={user.firstname + " " + user.lastname}
-                            email={user.email}
+                        <AvatarDropdown
+                            user={user}
+                            items={itemsAvatar}
                         />
                     </button>
                 </div>
