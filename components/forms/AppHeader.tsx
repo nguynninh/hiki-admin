@@ -4,7 +4,9 @@ import { MenuItem, SidebarMode } from "@/components/forms/AppSidebar";
 import { AvatarItem } from "@/components/forms/AvatarDropdown";
 import UserModel from "@/models/UserModel";
 import { BellRing, Globe, Menu, Settings, Sun, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { usePathname } from "next/navigation";
 
 const AppHeader = ({
     user,
@@ -18,6 +20,15 @@ const AppHeader = ({
     menu: MenuItem[];
 }) => {
     const { t } = useTranslation();
+    const pathname = usePathname();
+    const [namePage, setNamePage] = useState<string>("");
+
+    useEffect(() => {
+        const currentPage = menu.find((item) => item.href === pathname);
+        if (currentPage) {
+            setNamePage(currentPage.label);
+        }
+    }, [pathname, menu]);
 
     const itemsAvatar: AvatarItem[] = [
         {
@@ -99,7 +110,7 @@ const AppHeader = ({
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
                             }}>
-                            {menu.find((item) => item.href === window.location.pathname)?.label}
+                            {namePage}
                         </h3>
                     </div>
                 </div>
