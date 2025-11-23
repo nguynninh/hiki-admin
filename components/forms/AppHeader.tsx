@@ -25,11 +25,19 @@ const AppHeader = ({
     const [namePage, setNamePage] = useState<string>("");
 
     useEffect(() => {
-        if (pathname.startsWith("/")) {
-            pathname = pathname.slice(1);
+        let path = pathname;
+        if (path.startsWith("/")) {
+            path = path.slice(1);
         }
-        pathname = pathname.replace("/", "_");
-        setNamePage(t(`common:${pathname}`));
+        const segments = path.split('/');
+        const filteredSegments = segments.filter(segment => {
+            if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(segment)) return false;
+            if (/^\d+$/.test(segment)) return false;
+            return true;
+        });
+
+        const key = filteredSegments.join('_');
+        setNamePage(t(`common:${key}`));
     }, [pathname, t]);
 
     const itemsAvatar: AvatarItem[] = [
