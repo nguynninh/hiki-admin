@@ -21,6 +21,8 @@
     "action": "Thao tác",
     "edit": "Sửa",
     "delete": "Xóa",
+    "soft_delete": "Xóa mềm",
+    "hard_delete": "Xóa vĩnh viễn",
     "restore": "Khôi phục",
     "deleteSelected": "Xóa đã chọn",
     "auto": "Tự động",

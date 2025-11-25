@@ -7,10 +7,14 @@ import { useTranslation } from "react-i18next";
 import { Edit, Trash2, Undo2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import handleAPI from "@/apis/handleAPI";
+import { toast } from "sonner";
 
 const UsersPage = () => {
     const { t } = useTranslation();
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const [query, updateQuery, resetQuery] = useQuery({
         page: 1,
         limit: 10,
@@ -44,8 +48,19 @@ const UsersPage = () => {
         }
     ];
 
-    const handleDelete = (item: UserModel) => {
-        console.log(item);
+    const handleSoftDelete = async (item: UserModel) => {
+        setIsLoading(true);
+
+        try {
+            const response: any = await handleAPI(`/users/${item.id}`, {}, 'delete');
+            toast.success(response.message);
+
+            resetQuery();
+        } catch (error: any) {
+            toast.error(error.message);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleRestore = (item: UserModel) => {
@@ -75,11 +90,11 @@ const UsersPage = () => {
                         </Tooltip>
                         <Tooltip>
                             <TooltipContent>
-                                {t('common:delete')}
+                                {t('common:soft_delete')}
                             </TooltipContent>
                             <TooltipTrigger>
                                 <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-red-600"
-                                    onClick={() => handleDelete(item)}>
+                                    onClick={() => handleSoftDelete(item)}>
                                     <Trash2 size={18} />
                                 </div>
                             </TooltipTrigger>

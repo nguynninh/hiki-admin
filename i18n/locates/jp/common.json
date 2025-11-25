@@ -21,6 +21,8 @@
     "action": "アクション",
     "edit": "編集",
     "delete": "削除",
+    "soft_delete": "ソフト削除",
+    "hard_delete": "ハード削除",
     "restore": "復元",
     "deleteSelected": "選択を削除",
     "auto": "自動",

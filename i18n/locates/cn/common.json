@@ -21,6 +21,8 @@
     "action": "操作",
     "edit": "编辑",
     "delete": "删除",
+    "soft_delete": "软删除",
+    "hard_delete": "硬删除",
     "restore": "恢复",
     "deleteSelected": "删除选中项",
     "auto": "自动",
