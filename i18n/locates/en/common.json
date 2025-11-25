@@ -25,5 +25,7 @@
     "deleteSelected": "Delete Selected",
     "auto": "Auto",
     "open": "Open",
-    "close": "Close"
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save"
 }

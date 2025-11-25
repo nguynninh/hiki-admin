@@ -25,5 +25,7 @@
     "deleteSelected": "Xóa đã chọn",
     "auto": "Tự động",
     "open": "Mở",
-    "close": "Đóng"
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "save": "Lưu"
 }

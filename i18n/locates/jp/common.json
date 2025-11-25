@@ -25,5 +25,7 @@
     "deleteSelected": "選択を削除",
     "auto": "自動",
     "open": "開く",
-    "close": "閉じる"
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "save": "保存"
 }

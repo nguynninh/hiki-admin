@@ -1,6 +1,23 @@
 {
     "users": "ユーザー",
     "user": "ユーザー",
+    "users_edit": "ユーザーを編集",
+    "firstname": "名",
+    "firstname_placeholder": "名を入力",
+    "firstname_required": "名は必須です",
+    "lastname": "姓",
+    "lastname_placeholder": "姓を入力",
+    "lastname_required": "姓は必須です",
+    "fullname": "フルネーム",
+    "password": "パスワード",
+    "password_placeholder": "パスワードを入力",
+    "password_required": "パスワードは必須です",
+    "password_min_length": "パスワードは8文字以上である必要があります",
+    "email": "メールアドレス",
+    "email_placeholder": "メールアドレスを入力",
+    "email_required": "メールアドレスは必須です",
+    "email_invalid": "無効なメールアドレス",
+    "roles": "役割",
     "super_admin": "システム管理者",
     "seller": "販売者"
 }

@@ -8,13 +8,13 @@ interface Props {
   value: string;
   placeholder?: string;
   type?:
-    | "text"
-    | "password"
-    | "email"
-    | "number"
-    | "date"
-    | "time"
-    | "textarea";
+  | "text"
+  | "password"
+  | "email"
+  | "number"
+  | "date"
+  | "time"
+  | "textarea";
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -23,6 +23,7 @@ interface Props {
   disabled?: boolean;
   error?: string;
   info?: string;
+  className?: string;
 }
 
 const variantClasses = {
@@ -42,16 +43,15 @@ const InputComponent = ({
   disabled,
   error,
   info,
+  className,
 }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const wrapperClasses = `w-full ${variantClasses[variant]} ${
-    prefix ? "pl-10" : ""
-  } ${
-    error
+  const wrapperClasses = `w-full ${variantClasses[variant]} ${prefix ? "pl-10" : ""
+    } ${error
       ? "border-red-500 ring-red-500 focus-visible:border-red-500 focus-visible:ring-red-500"
       : ""
-  }`;
+    } ${className || ""}`;
 
   const renderTextInput = () => (
     <>

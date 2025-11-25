@@ -8,7 +8,9 @@ const Router = () => {
     const auth = useSelector((state: any) => state.authReducer.data);
 
     return auth?.access_token
-        ? <MainLayout><DashboardPage /></MainLayout>
+        ? <MainLayout>
+            <DashboardPage />
+        </MainLayout>
         : <AuthLayout />
 };
 

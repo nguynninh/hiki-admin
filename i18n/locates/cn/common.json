@@ -25,5 +25,7 @@
     "deleteSelected": "删除选中项",
     "auto": "自动",
     "open": "打开",
-    "close": "关闭"
+    "close": "关闭",
+    "cancel": "取消",
+    "save": "保存"
 }
