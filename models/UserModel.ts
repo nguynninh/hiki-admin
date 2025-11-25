@@ -8,8 +8,9 @@ interface UserModel {
     firstname: string;
     lastname: string;
     fullname: string;
+    password: string;
     email: string;
-    roles: Role[] | string[]; // Can be Role objects or string array after mapping
+    roles: Role[] | string[];
     avatar: string;
     created_at: Date;
     updated_at: Date;

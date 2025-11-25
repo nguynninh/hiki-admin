@@ -1,6 +1,23 @@
 {
     "users": "Users",
     "user": "User",
+    "users_edit": "Edit User",
+    "firstname": "First Name",
+    "firstname_placeholder": "Enter first name",
+    "firstname_required": "First name is required",
+    "lastname": "Last Name",
+    "lastname_placeholder": "Enter last name",
+    "lastname_required": "Last name is required",
+    "fullname": "Full Name",
+    "password": "Password",
+    "password_placeholder": "Enter password",
+    "password_required": "Password is required",
+    "password_min_length": "Password must be at least 8 characters",
+    "email": "Email",
+    "email_placeholder": "Enter email",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email",
+    "roles": "Roles",
     "super_admin": "Super Admin",
     "seller": "Seller"
 }

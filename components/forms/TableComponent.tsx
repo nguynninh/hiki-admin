@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Pagination as PaginationModel } from "@/models/Pagination";
 import { Button } from "@/components/ui/button";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     columns: any;
@@ -50,6 +51,7 @@ const LiquidGlassTag = ({ text }: { text: string }) => {
 
 const TableComponent = (props: Props) => {
     const { columns, data, pagination, onChangePage, renderAction } = props;
+    const { t } = useTranslation();
     const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
     const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,13 +89,13 @@ const TableComponent = (props: Props) => {
                             </TableHead>
                         )}
                         {props.typeList === 'stt' && (
-                            <TableHead className="w-[50px] text-center">STT</TableHead>
+                            <TableHead className="w-[50px] text-center">{t('common:stt')}</TableHead>
                         )}
                         {columns.map((column: any) => (
                             <TableHead key={column.key}>{column.title}</TableHead>
                         ))}
                         {renderAction && (
-                            <TableHead className="text-left w-[100px]">Hành động</TableHead>
+                            <TableHead className="text-left w-[100px]">{t('common:action')}</TableHead>
                         )}
                     </TableRow>
                 </TableHeader>
@@ -101,13 +103,15 @@ const TableComponent = (props: Props) => {
                     {data.map((item: any, index: number) => (
                         <TableRow key={item.id}>
                             {props.typeList === 'checkbox' && (
-                                <TableCell className="w-full flex items-center justify-center">
-                                    <input
-                                        type="checkbox"
-                                        className="flex items-center justify-center accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                                        checked={selectedRows.includes(item.id)}
-                                        onChange={() => handleSelectRow(item.id)}
-                                    />
+                                <TableCell className="text-center">
+                                    <div className="flex items-center justify-center h-full">
+                                        <input
+                                            type="checkbox"
+                                            className="accent-primary h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                            checked={selectedRows.includes(item.id)}
+                                            onChange={() => handleSelectRow(item.id)}
+                                        />
+                                    </div>
                                 </TableCell>
                             )}
                             {props.typeList === 'stt' && (
@@ -145,7 +149,7 @@ const TableComponent = (props: Props) => {
             </Table>
             <div className="flex justify-between mx-6">
                 <Button>
-                    Xóa đã chọn {selectedRows.length}
+                    {t('common:deleteSelected')} {selectedRows.length}
                 </Button>
                 <Pagination className="flex justify-end">
                     <PaginationContent>
@@ -166,8 +170,7 @@ const TableComponent = (props: Props) => {
                                     <PaginationLink
                                         isActive={currentPage === 1}
                                         onClick={() => onChangePage(1)}
-                                        className="cursor-pointer"
-                                    >
+                                        className="cursor-pointer">
                                         1
                                     </PaginationLink>
                                 </PaginationItem>
@@ -187,8 +190,7 @@ const TableComponent = (props: Props) => {
                                         <PaginationLink
                                             isActive={currentPage === i}
                                             onClick={() => onChangePage(i)}
-                                            className="cursor-pointer"
-                                        >
+                                            className="cursor-pointer">
                                             {i}
                                         </PaginationLink>
                                     </PaginationItem>

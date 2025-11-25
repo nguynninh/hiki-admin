@@ -1,7 +1,10 @@
 {
     "dashboard": "Bảng điều khiển",
     "users": "Người dùng",
-    "banner": "Banner",
+    "users_list": "Danh sách người dùng",
+    "users_create": "Thêm người dùng",
+    "users_edit": "Sửa người dùng",
+    "banners": "Banner",
     "settings": "Cài đặt",
     "language": "Ngôn ngữ",
     "english": "Tiếng Anh",
@@ -14,7 +17,15 @@
     "system": "Hệ thống",
     "profile": "Hồ sơ",
     "logout": "Đăng xuất",
+    "stt": "STT",
+    "action": "Thao tác",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "restore": "Khôi phục",
+    "deleteSelected": "Xóa đã chọn",
     "auto": "Tự động",
     "open": "Mở",
-    "close": "Đóng"
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "save": "Lưu"
 }
