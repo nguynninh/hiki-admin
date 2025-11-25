@@ -21,6 +21,8 @@
     "action": "Action",
     "edit": "Edit",
     "delete": "Delete",
+    "soft_delete": "Soft Delete",
+    "hard_delete": "Hard Delete",
     "restore": "Restore",
     "deleteSelected": "Delete Selected",
     "auto": "Auto",
