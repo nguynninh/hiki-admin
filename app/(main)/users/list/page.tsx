@@ -76,7 +76,7 @@ const UsersPage = () => {
             columns={columns}
             data={users}
             pagination={pagination}
-            onChangePage={(page: any) => updateQuery({ page })}
+            updateQuery={updateQuery}
             typeList="checkbox"
             renderAction={(item: UserModel) => (
                 <div className="flex items-center justify-center gap-2">

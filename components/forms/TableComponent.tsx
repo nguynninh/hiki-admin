@@ -19,7 +19,7 @@ interface Props {
     columns: any;
     data: any;
     pagination: PaginationModel;
-    onChangePage: (page: number) => void;
+    updateQuery: (query: any) => void;
     typeList?: 'checkbox' | 'stt';
     showSearch?: boolean;
     isRefresh?: boolean;
@@ -69,7 +69,7 @@ const TableComponent = (props: Props) => {
         columns,
         data,
         pagination,
-        onChangePage,
+        updateQuery,
         renderAction,
         changeColumns,
         handleImport,
@@ -120,18 +120,20 @@ const TableComponent = (props: Props) => {
                         <ListFilterPlus className="w-4 h-4" />
                     </Button>
                     {showSearch &&
-                        <InputSearchComponent shape="square" />}
+                        <InputSearchComponent
+                            onChange={(value) => updateQuery({ q: value })}
+                            shape="square" />}
                     {isRefresh &&
                         <Button
                             variant="outline"
                             onKeyDown={(e) => {
                                 if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
                                     e.preventDefault();
-                                    onChangePage(1);
+                                    updateQuery({ page: 1 });
                                 }
                             }}
                             autoFocus
-                            onClick={() => onChangePage(1)}
+                            onClick={() => updateQuery({ page: 1 })}
                             className="bg-white/20 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
                             <RefreshCw className="w-4 h-4" />
                         </Button>}
@@ -250,8 +252,8 @@ const TableComponent = (props: Props) => {
             </div>
             <div className="flex justify-between mx-6 text-muted-foreground dark:text-gray-400">
                 {handleDeleteAll &&
-                    <Button 
-                        variant="outline" 
+                    <Button
+                        variant="outline"
                         disabled={selectedRows.length === 0}
                         onClick={() => handleDeleteAll(selectedRows)}
                         className="text-muted-foreground dark:text-gray-400 hover:text-white border-foreground hover:bg-red-500 dark:hover:bg-red-500">
@@ -262,7 +264,7 @@ const TableComponent = (props: Props) => {
                     <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious
-                                onClick={() => pagination.previousPage && onChangePage(pagination.page - 1)}
+                                onClick={() => pagination.previousPage && updateQuery({ page: pagination.page - 1 })}
                                 className={!pagination.previousPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
                             />
                         </PaginationItem>
@@ -276,7 +278,7 @@ const TableComponent = (props: Props) => {
                                 <PaginationItem key={1}>
                                     <PaginationLink
                                         isActive={currentPage === 1}
-                                        onClick={() => onChangePage(1)}
+                                        onClick={() => updateQuery({ page: 1 })}
                                         className="cursor-pointer">
                                         1
                                     </PaginationLink>
@@ -296,7 +298,7 @@ const TableComponent = (props: Props) => {
                                     <PaginationItem key={i}>
                                         <PaginationLink
                                             isActive={currentPage === i}
-                                            onClick={() => onChangePage(i)}
+                                            onClick={() => updateQuery({ page: i })}
                                             className="cursor-pointer">
                                             {i}
                                         </PaginationLink>
@@ -317,7 +319,7 @@ const TableComponent = (props: Props) => {
                                     <PaginationItem key={totalPages}>
                                         <PaginationLink
                                             isActive={currentPage === totalPages}
-                                            onClick={() => onChangePage(totalPages)}
+                                            onClick={() => updateQuery({ page: totalPages })}
                                             className="cursor-pointer"
                                         >
                                             {totalPages}
@@ -331,7 +333,7 @@ const TableComponent = (props: Props) => {
 
                         <PaginationItem>
                             <PaginationNext
-                                onClick={() => pagination.nextPage && onChangePage(pagination.page + 1)}
+                                onClick={() => pagination.nextPage && updateQuery({ page: pagination.page + 1 })}
                                 className={!pagination.nextPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
                             />
                         </PaginationItem>
