@@ -29,5 +29,9 @@
     "open": "Mở",
     "close": "Đóng",
     "cancel": "Hủy",
+    "add_new": "Thêm mới",
+    "import": "Nhập dữ liệu",
+    "export": "Xuất dữ liệu",
+    "columns": "Hiện/Ẩn cột",
     "save": "Lưu"
 }

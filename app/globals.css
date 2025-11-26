@@ -119,6 +119,15 @@
   body {
     @apply bg-background text-foreground transition-colors duration-500;
   }
+
+  /* Liquid Light Background Effect */
+  body {
+    background-image: 
+      radial-gradient(circle at 15% 50%, oklch(0.95 0.05 260 / 0.6), transparent 25%),
+      radial-gradient(circle at 85% 30%, oklch(0.95 0.05 300 / 0.6), transparent 25%),
+      radial-gradient(circle at 50% 80%, oklch(0.95 0.05 220 / 0.6), transparent 40%);
+    background-attachment: fixed;
+  }
   
   /* Liquid Dark Background Effect */
   .dark body {
