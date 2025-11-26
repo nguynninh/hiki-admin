@@ -16,8 +16,13 @@
     "email": "Email",
     "email_placeholder": "Nhập email",
     "email_required": "Email là bắt buộc",
-    "email_invalid": "Email không hợp lệ",
+    "is_deleted": "Trạng thái tài khoản",
+    "is_deleted_all": "Tất cả",
+    "is_deleted_active": "Hoạt động",
+    "is_deleted_deleted": "Đã bị xoá",
     "roles": "Vai trò",
+    "roles_all": "Tất cả",
     "super_admin": "Chủ hệ thống",
+    "admin": "Quản trị viên",
     "seller": "Bán hàng"
 }

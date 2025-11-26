@@ -13,7 +13,26 @@ import {
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSub,
+    DropdownMenuSubTrigger,
+    DropdownMenuPortal,
+    DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
+
+export interface FilterOption {
+    label: string;
+    value: string;
+}
+
+export interface FilterConfig {
+    key: string;
+    title: string;
+    options: FilterOption[];
+    value?: string;
+    defaultValue?: string;
+}
 
 interface Props {
     columns: any;
@@ -29,6 +48,7 @@ interface Props {
     handleExport?: () => void;
     handleAddNew?: () => void;
     changeColumns?: boolean;
+    filters?: FilterConfig[];
 }
 
 const getColorFromString = (str: string) => {
@@ -78,6 +98,7 @@ const TableComponent = (props: Props) => {
         handleDeleteAll,
         isRefresh,
         showSearch,
+        filters,
     } = props;
     const { t } = useTranslation();
     const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -114,11 +135,50 @@ const TableComponent = (props: Props) => {
         <div className="space-y-4 p-6 rounded-3xl bg-card/40 border border-white/20 dark:border-white/10 backdrop-blur-xl shadow-2xl">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Button
-                        variant="outline"
-                        className="bg-white/20 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
-                        <ListFilterPlus className="w-4 h-4" />
-                    </Button>
+                    {filters ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="bg-white/20 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
+                                    <ListFilterPlus className="w-4 h-4" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="start" className="w-60">
+                                {filters.map((filter) => (
+                                    <DropdownMenuSub key={filter.key}>
+                                        <DropdownMenuSubTrigger>
+                                            <span className="flex-1">{filter.title}</span>
+                                            {(filter.value || filter.defaultValue) && (
+                                                <span className="text-xs text-muted-foreground mr-2">
+                                                    {filter.options.find(opt => opt.value === (filter.value || filter.defaultValue))?.label}
+                                                </span>
+                                            )}
+                                        </DropdownMenuSubTrigger>
+                                        <DropdownMenuPortal>
+                                            <DropdownMenuSubContent>
+                                                <DropdownMenuRadioGroup
+                                                    value={filter.value || filter.defaultValue}
+                                                    onValueChange={(value) => updateQuery({ [filter.key]: value, page: 1 })}>
+                                                    {filter.options.map((option) => (
+                                                        <DropdownMenuRadioItem key={option.value} value={option.value}>
+                                                            {option.label}
+                                                        </DropdownMenuRadioItem>
+                                                    ))}
+                                                </DropdownMenuRadioGroup>
+                                            </DropdownMenuSubContent>
+                                        </DropdownMenuPortal>
+                                    </DropdownMenuSub>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
+                        <Button
+                            variant="outline"
+                            className="bg-white/20 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
+                            <ListFilterPlus className="w-4 h-4" />
+                        </Button>
+                    )}
                     {showSearch &&
                         <InputSearchComponent
                             onChange={(value) => updateQuery({ q: value })}
