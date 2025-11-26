@@ -67,53 +67,59 @@ const UsersPage = () => {
         console.log(item);
     };
 
+    const handleDeleteAll = async (ids: string[]) => {
+        console.log(ids);
+    };
+
     return (
-        <Card>
-            <TableComponent
-                columns={columns}
-                data={users}
-                pagination={pagination}
-                onChangePage={(page: any) => updateQuery({ page })}
-                typeList="checkbox"
-                renderAction={(item: UserModel) => (
-                    <div className="flex items-center justify-center gap-2">
-                        <Tooltip>
-                            <TooltipContent>
-                                {t('common:edit')}
-                            </TooltipContent>
-                            <TooltipTrigger>
-                                <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-blue-600"
-                                    onClick={() => router.push(`/users/${item.id}/edit`)}>
-                                    <Edit size={18} />
-                                </div>
-                            </TooltipTrigger>
-                        </Tooltip>
-                        <Tooltip>
-                            <TooltipContent>
-                                {t('common:soft_delete')}
-                            </TooltipContent>
-                            <TooltipTrigger>
-                                <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-red-600"
-                                    onClick={() => handleSoftDelete(item)}>
-                                    <Trash2 size={18} />
-                                </div>
-                            </TooltipTrigger>
-                        </Tooltip>
-                        <Tooltip>
-                            <TooltipContent>
-                                {t('common:restore')}
-                            </TooltipContent>
-                            <TooltipTrigger>
-                                <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-green-600"
-                                    onClick={() => handleRestore(item)}>
-                                    <Undo2 size={18} />
-                                </div>
-                            </TooltipTrigger>
-                        </Tooltip>
-                    </div>
-                )}
-            />
-        </Card>
+        <TableComponent
+            columns={columns}
+            data={users}
+            pagination={pagination}
+            onChangePage={(page: any) => updateQuery({ page })}
+            typeList="checkbox"
+            renderAction={(item: UserModel) => (
+                <div className="flex items-center justify-center gap-2">
+                    <Tooltip>
+                        <TooltipContent>
+                            {t('common:edit')}
+                        </TooltipContent>
+                        <TooltipTrigger>
+                            <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-blue-600"
+                                onClick={() => router.push(`/users/${item.id}/edit`)}>
+                                <Edit size={18} />
+                            </div>
+                        </TooltipTrigger>
+                    </Tooltip>
+                    <Tooltip>
+                        <TooltipContent>
+                            {t('common:soft_delete')}
+                        </TooltipContent>
+                        <TooltipTrigger>
+                            <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-red-600"
+                                onClick={() => handleSoftDelete(item)}>
+                                <Trash2 size={18} />
+                            </div>
+                        </TooltipTrigger>
+                    </Tooltip>
+                    <Tooltip>
+                        <TooltipContent>
+                            {t('common:restore')}
+                        </TooltipContent>
+                        <TooltipTrigger>
+                            <div className="p-2 hover:bg-gray-100 rounded-full transition-colors text-green-600"
+                                onClick={() => handleRestore(item)}>
+                                <Undo2 size={18} />
+                            </div>
+                        </TooltipTrigger>
+                    </Tooltip>
+                </div>
+            )}
+            changeColumns
+            isRefresh
+            showSearch
+            handleDeleteAll={(ids) => handleDeleteAll(ids)}
+        />
     );
 };
 
