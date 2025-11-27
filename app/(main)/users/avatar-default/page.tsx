@@ -8,11 +8,19 @@ import { toast } from 'sonner';
 import AvatarDefaultModal from '@/models/AvatarDefaultModal';
 import handleAPI from '@/apis/handleAPI';
 import { useTranslation } from 'react-i18next';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 
 const AvatarDefaultPage = () => {
     const [avatars, setAvatars] = useState<AvatarDefaultModal[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isUploading, setIsUploading] = useState(false);
+    const [selectedAvatar, setSelectedAvatar] = useState<AvatarDefaultModal | null>(null);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -53,6 +61,7 @@ const AvatarDefaultPage = () => {
         try {
             const res: any = await handleAPI(`/users/avatar-default/${id}`, {}, 'delete');
             toast.success(res.message);
+            setSelectedAvatar(null);
             fetchAvatars();
         } catch (error: any) {
             toast.error(error.message);
@@ -95,42 +104,74 @@ const AvatarDefaultPage = () => {
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
             ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                    {avatars.map((avatar) => (
+                <>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        {avatars.map((avatar) => (
+                            <div
+                                key={avatar.id}
+                                onClick={() => setSelectedAvatar(avatar)}
+                                className="group relative aspect-square rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 cursor-pointer border border-white/20 bg-white/10 backdrop-blur-md shadow-lg"
+                                style={{
+                                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)",
+                                }}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 z-0"></div>
+
+                                <div className="absolute inset-2 z-10 rounded-xl overflow-hidden bg-black/5 dark:bg-white/5">
+                                    <img
+                                        src={avatar.url}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                </div>
+                            </div>
+                        ))}
+
                         <div
-                            key={avatar.id}
-                            className="group relative aspect-square rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
-                            <div className="absolute inset-0 bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl z-0"></div>
-
-                            <div className="absolute inset-2 z-10 rounded-xl overflow-hidden bg-white/5">
-                                <img
-                                    src={avatar.url}
-                                    alt={avatar.name}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
+                            className="group relative aspect-square rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-all duration-300 flex flex-col items-center justify-center cursor-pointer shadow-lg hover:shadow-xl"
+                            style={{
+                                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)",
+                            }}
+                            onClick={() => document.getElementById('avatar-upload')?.click()}>
+                            <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 mb-2 shadow-inner">
+                                <Plus className="h-8 w-8 text-primary/70 group-hover:text-primary transition-colors duration-300" />
                             </div>
-
-                            <div className="absolute inset-0 z-20 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                                <Button
-                                    variant="destructive"
-                                    size="icon"
-                                    className="rounded-full w-10 h-10 bg-red-500/80 hover:bg-red-600 border border-white/20 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                                    onClick={() => handleDelete(avatar.id)}>
-                                    <Trash2 className="h-5 w-5" />
-                                </Button>
-                            </div>
+                            <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors duration-300">{t("user:users_avatar-default_add_new")}</span>
                         </div>
-                    ))}
-
-                    <div
-                        className="group relative aspect-square rounded-2xl border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors duration-300 flex flex-col items-center justify-center cursor-pointer bg-white/5 hover:bg-white/10 backdrop-blur-sm"
-                        onClick={() => document.getElementById('avatar-upload')?.click()}>
-                        <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300 mb-2">
-                            <Plus className="h-8 w-8 text-primary/70 group-hover:text-primary transition-colors duration-300" />
-                        </div>
-                        <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors duration-300">{t("user:users_avatar-default_add_new")}</span>
                     </div>
-                </div>
+
+                    <Dialog open={!!selectedAvatar} onOpenChange={(open) => !open && setSelectedAvatar(null)}>
+                        <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                                <DialogTitle>{selectedAvatar?.name}</DialogTitle>
+                            </DialogHeader>
+                            <div className="flex items-center justify-center p-4">
+                                <div className="relative w-64 h-64 rounded-xl overflow-hidden border border-white/20 shadow-2xl">
+                                    <img
+                                        src={selectedAvatar?.url}
+                                        alt={selectedAvatar?.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                            </div>
+                            <DialogFooter className="sm:justify-between">
+                                <Button
+                                    type="button"
+                                    variant="secondary"
+                                    onClick={() => setSelectedAvatar(null)}
+                                >
+                                    {t("common:close")}
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="destructive"
+                                    onClick={() => selectedAvatar && handleDelete(selectedAvatar.id)}
+                                >
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    {t("common:delete")}
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </>
             )}
         </div>
     );
