@@ -43,6 +43,7 @@ const AppSidebar = (props: Props) => {
     const { t } = useTranslation();
     const [openMenus, setOpenMenus] = useState<string[]>([]);
     const router = useRouter();
+    const pathname = usePathname();
 
     const isOpen = useMemo(() => {
         if (mode === "expanded") return true;
@@ -59,7 +60,7 @@ const AppSidebar = (props: Props) => {
     };
 
     const renderMenuItem = (item: MenuItem, index: number, level: number = 0) => {
-        const isActive = usePathname() === item.href;
+        const isActive = pathname === item.href;
         const hasChildren = item.children && item.children.length > 0;
         const isOpenMenu = openMenus.includes(item.label);
 
