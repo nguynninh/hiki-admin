@@ -1,5 +1,6 @@
 export default interface AvatarDefaultModel {
     id: string;
+    url: string;
     name: string;
     created_by: string;
     created_at: string;

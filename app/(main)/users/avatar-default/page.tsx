@@ -36,7 +36,10 @@ const AvatarDefaultPage = () => {
 
         setIsUploading(true);
         try {
-            const res: any = await handleAPI("/users/avatar-default", { file }, 'post');
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res: any = await handleAPI("/users/avatar-default", formData, 'post');
             toast.success(res.message);
             fetchAvatars();
         } catch (error: any) {
@@ -101,7 +104,7 @@ const AvatarDefaultPage = () => {
 
                             <div className="absolute inset-2 z-10 rounded-xl overflow-hidden bg-white/5">
                                 <img
-                                    src={avatar.id}
+                                    src={avatar.url}
                                     alt={avatar.name}
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
