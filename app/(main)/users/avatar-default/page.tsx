@@ -29,8 +29,8 @@ const AvatarDefaultPage = () => {
 
     const fetchAvatars = async () => {
         try {
-            const res = await handleAPI("/users/avatar-default", {}, 'get');
-            setAvatars(res.data.avatars);
+            const res = await handleAPI("/users/avatar-defaults", {}, 'get');
+            setAvatars(res.data.avatar_defaults);
         } catch (error: any) {
             toast.error(error.message);
         } finally {
@@ -47,7 +47,7 @@ const AvatarDefaultPage = () => {
             const formData = new FormData();
             formData.append('file', file);
 
-            const res: any = await handleAPI("/users/avatar-default", formData, 'post');
+            const res: any = await handleAPI("/users/avatar-defaults", formData, 'post');
             toast.success(res.message);
             fetchAvatars();
         } catch (error: any) {
@@ -59,7 +59,7 @@ const AvatarDefaultPage = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            const res: any = await handleAPI(`/users/avatar-default/${id}`, {}, 'delete');
+            const res: any = await handleAPI(`/users/avatar-defaults/${id}`, {}, 'delete');
             toast.success(res.message);
             setSelectedAvatar(null);
             fetchAvatars();

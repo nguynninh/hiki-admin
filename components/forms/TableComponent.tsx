@@ -201,18 +201,21 @@ const TableComponent = (props: Props) => {
                 <div className="flex justify-end items-center gap-2">
                     {handleImport && <Button
                         variant="outline"
+                        onClick={handleImport}
                         className="bg-white/20 dark:bg-white/5 border-white/20 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
-                        <Upload onClick={handleImport} className="w-4 h-4" />
+                        <Upload className="w-4 h-4" />
                     </Button>}
                     {handleExport && <Button
                         variant="outline"
+                        onClick={handleExport}
                         className="bg-white/20 dark:bg-white/5 border-white/20 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
-                        <Download onClick={handleExport} className="w-4 h-4" />
+                        <Download className="w-4 h-4" />
                     </Button>}
                     {handleAddNew && <Button
                         variant="outline"
+                        onClick={handleAddNew}
                         className="bg-white/20 dark:bg-white/5 border-white/20 dark:border-white/10 hover:bg-white/30 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white text-muted-foreground dark:text-gray-300 transition-all duration-300">
-                        <Plus onClick={handleAddNew} className="w-4 h-4 mr-2" />
+                        <Plus className="w-4 h-4 mr-2" />
                         {t('common:add_new')}
                     </Button>}
                     {changeColumns &&
@@ -295,6 +298,19 @@ const TableComponent = (props: Props) => {
                                                 className="text-blue-600 hover:text-blue-800 hover:underline transition-colors">
                                                 {item[column.key]}
                                             </a>
+                                        ) : column.type === "image" ? (
+                                            <div className="w-20 h-12 rounded-lg overflow-hidden relative border border-white/20">
+                                                <img
+                                                    src={item[column.key]}
+                                                    alt="banner"
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        (e.target as HTMLImageElement).src = '/images/placeholder.png'; // Fallback
+                                                    }}
+                                                />
+                                            </div>
+                                        ) : column.render ? (
+                                            column.render(item)
                                         ) : (
                                             item[column.key]
                                         )}
