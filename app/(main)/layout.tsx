@@ -41,6 +41,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     icon: <Users size={22} />,
                     label: t("common:users_create"),
                     href: "/users/create",
+                },
+                {
+                    icon: <Users size={22} />,
+                    label: t("common:users_avatar-default"),
+                    href: "/users/avatar-default",
                 }
             ]
         },
