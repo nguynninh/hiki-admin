@@ -51,9 +51,23 @@ const SellerRequestsPage = () => {
 
     const columns: any[] = [
         {
-            key: "avatar",
-            title: t("user:avatar", { defaultValue: "Avatar" }),
-            type: "image",
+            key: "logo",
+            title: t("store:logo", { defaultValue: "Logo" }),
+            render: (item: any) => (
+                <div className="w-10 h-10 relative overflow-hidden rounded-full border border-gray-200">
+                    <img
+                        src={item.store?.logo || "https://img.icons8.com/color/48/shop.png"}
+                        alt="Store Logo"
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.currentTarget.src = "https://img.icons8.com/color/48/shop.png" }}
+                    />
+                </div>
+            )
+        },
+        {
+            key: "store_name",
+            title: t("store:store_name", { defaultValue: "Store Name" }),
+            render: (item: any) => <span className="font-medium">{item.store?.store_name || "N/A"}</span>
         },
         {
             key: "email",
@@ -61,20 +75,27 @@ const SellerRequestsPage = () => {
             sortable: true,
         },
         {
-            key: "firstname",
-            title: t("user:firstname", { defaultValue: "First Name" }),
-            sortable: true,
+            key: "phone",
+            title: t("store:phone", { defaultValue: "Phone" }),
+            render: (item: any) => <span>{item.store?.phone || "N/A"}</span>
         },
         {
-            key: "lastname",
-            title: t("user:lastname", { defaultValue: "Last Name" }),
-            sortable: true,
+            key: "address",
+            title: t("store:address", { defaultValue: "Address" }),
+            render: (item: any) => (
+                <div className="max-w-[200px] truncate" title={item.store?.address}>
+                    {item.store?.address || "N/A"}
+                </div>
+            )
         },
         {
             key: "seller_request_status",
             title: t("user:status", { defaultValue: "Status" }),
             render: (item: any) => (
-                <span className="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">
+                <span className={`px-2 py-1 rounded-full text-xs ${item.seller_request_status === 'approved' ? 'bg-green-100 text-green-800' :
+                    item.seller_request_status === 'rejected' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                    }`}>
                     {item.seller_request_status}
                 </span>
             ),
