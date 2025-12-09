@@ -6,6 +6,7 @@ import { useSelector } from "react-redux"
 import { MenuItem, SidebarMode } from "@/components/forms/AppSidebar";
 import { BookHeart, Gauge, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Monitor, Layer, TaskSquare } from "iconsax-reactjs";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const [mode, setMode] = useState<SidebarMode>("collapsed");
@@ -46,8 +47,23 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     icon: <Users size={22} />,
                     label: t("common:users_avatar-default"),
                     href: "/users/avatar-default",
+                },
+                {
+                    icon: <Users size={22} />,
+                    label: t("user:seller_requests", { defaultValue: "Seller Requests" }),
+                    href: "/users/seller-requests",
                 }
             ]
+        },
+        {
+            icon: <Monitor size={22} />,
+            label: t("common:products", { defaultValue: "Products" }),
+            href: "/products",
+        },
+        {
+            icon: <Layer size={22} />,
+            label: t("common:categories", { defaultValue: "Categories" }),
+            href: "/categories",
         },
         {
             icon: <BookHeart size={22} />,
